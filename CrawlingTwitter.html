@@ -8,7 +8,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Crawling TWI USING SNSCRAPE &#8212; Muhammad Hanif Santoso - 200411100078</title>
+    <title>Crawling Twitter Using SNSCRAPE &#8212; Muhammad Hanif Santoso - 200411100078</title>
   
   
   
@@ -161,7 +161,7 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">TUGAS</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Crawling TWI USING SNSCRAPE</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Crawling Twitter Using SNSCRAPE</a></li>
 <li class="toctree-l1"><a class="reference internal" href="CrawlingWebPTA.html">Crawling data Website https://pta.trunojoyo.ac.id/</a></li>
 <li class="toctree-l1"><a class="reference internal" href="CrawlingWebBerita.html">Crawling data Website Berita CNN</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pipelinesorchest.html">Pipelines Menggunakan Orchest</a></li>
@@ -379,7 +379,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Crawling TWI USING SNSCRAPE</h1>
+    <h1>Crawling Twitter Using SNSCRAPE</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -404,8 +404,8 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <div class="tex2jax_ignore mathjax_ignore section" id="crawling-twi-using-snscrape">
-<h1>Crawling TWI USING SNSCRAPE<a class="headerlink" href="#crawling-twi-using-snscrape" title="Permalink to this heading">#</a></h1>
+  <div class="tex2jax_ignore mathjax_ignore section" id="crawling-twitter-using-snscrape">
+<h1>Crawling Twitter Using SNSCRAPE<a class="headerlink" href="#crawling-twitter-using-snscrape" title="Permalink to this heading">#</a></h1>
 <div class="section" id="install-modul-snscrape">
 <h2>1. Install Modul SNSCRAPE<a class="headerlink" href="#install-modul-snscrape" title="Permalink to this heading">#</a></h2>
 <div class="cell docutils container">
@@ -416,17 +416,25 @@ document.write(`
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Looking in indexes: https://pypi.org/simple, https://us-python.pkg.dev/colab-wheels/public/simple/
-Requirement already satisfied: snscrape in /usr/local/lib/python3.8/dist-packages (0.6.0.20230303)
-Requirement already satisfied: requests[socks] in /usr/local/lib/python3.8/dist-packages (from snscrape) (2.25.1)
-Requirement already satisfied: beautifulsoup4 in /usr/local/lib/python3.8/dist-packages (from snscrape) (4.6.3)
-Requirement already satisfied: pytz in /usr/local/lib/python3.8/dist-packages (from snscrape) (2022.7.1)
-Requirement already satisfied: filelock in /usr/local/lib/python3.8/dist-packages (from snscrape) (3.9.0)
-Requirement already satisfied: lxml in /usr/local/lib/python3.8/dist-packages (from snscrape) (4.9.2)
-Requirement already satisfied: chardet&lt;5,&gt;=3.0.2 in /usr/local/lib/python3.8/dist-packages (from requests[socks]-&gt;snscrape) (4.0.0)
-Requirement already satisfied: certifi&gt;=2017.4.17 in /usr/local/lib/python3.8/dist-packages (from requests[socks]-&gt;snscrape) (2022.12.7)
-Requirement already satisfied: idna&lt;3,&gt;=2.5 in /usr/local/lib/python3.8/dist-packages (from requests[socks]-&gt;snscrape) (2.10)
-Requirement already satisfied: urllib3&lt;1.27,&gt;=1.21.1 in /usr/local/lib/python3.8/dist-packages (from requests[socks]-&gt;snscrape) (1.26.14)
-Requirement already satisfied: PySocks!=1.5.7,&gt;=1.5.6 in /usr/local/lib/python3.8/dist-packages (from requests[socks]-&gt;snscrape) (1.7.1)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting snscrape
+  Downloading snscrape-0.6.0.20230303-py3-none-any.whl (71 kB)
+?25l     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">0.0/71.6 KB</span> <span class=" -Color -Color-Red">?</span> eta <span class=" -Color -Color-Cyan">-:--:--</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">71.6/71.6 KB</span> <span class=" -Color -Color-Red">5.3 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
+?25hRequirement already satisfied: filelock in /usr/local/lib/python3.9/dist-packages (from snscrape) (3.9.0)
+Requirement already satisfied: lxml in /usr/local/lib/python3.9/dist-packages (from snscrape) (4.9.2)
+Requirement already satisfied: requests[socks] in /usr/local/lib/python3.9/dist-packages (from snscrape) (2.25.1)
+Requirement already satisfied: beautifulsoup4 in /usr/local/lib/python3.9/dist-packages (from snscrape) (4.6.3)
+Requirement already satisfied: chardet&lt;5,&gt;=3.0.2 in /usr/local/lib/python3.9/dist-packages (from requests[socks]-&gt;snscrape) (4.0.0)
+Requirement already satisfied: certifi&gt;=2017.4.17 in /usr/local/lib/python3.9/dist-packages (from requests[socks]-&gt;snscrape) (2022.12.7)
+Requirement already satisfied: urllib3&lt;1.27,&gt;=1.21.1 in /usr/local/lib/python3.9/dist-packages (from requests[socks]-&gt;snscrape) (1.26.14)
+Requirement already satisfied: idna&lt;3,&gt;=2.5 in /usr/local/lib/python3.9/dist-packages (from requests[socks]-&gt;snscrape) (2.10)
+Requirement already satisfied: PySocks!=1.5.7,&gt;=1.5.6 in /usr/local/lib/python3.9/dist-packages (from requests[socks]-&gt;snscrape) (1.7.1)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Installing collected packages: snscrape
+Successfully installed snscrape-0.6.0.20230303
 </pre></div>
 </div>
 </div>
@@ -479,7 +487,7 @@ Requirement already satisfied: PySocks!=1.5.7,&gt;=1.5.6 in /usr/local/lib/pytho
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-  <div id="df-53525b03-9710-4b47-b9fc-a1c0db5f398c">
+  <div id="df-8404bf75-8ceb-4f15-8421-a9f2b92780e7">
     <div class="colab-df-container">
       <div>
 <style scoped>
@@ -508,37 +516,37 @@ Requirement already satisfied: PySocks!=1.5.7,&gt;=1.5.6 in /usr/local/lib/pytho
   <tbody>
     <tr>
       <th>0</th>
-      <td>2023-03-08 18:49:49+00:00</td>
-      <td>@solehsolihun @ridwankamil Pernah ni dulu pas ...</td>
-      <td>Inisial3PW</td>
-      <td></td>
+      <td>2023-03-09 00:53:31+00:00</td>
+      <td>@BlazeF5E @dermawaneka4 @ruben_pekok @solehsol...</td>
+      <td>icukprayogi</td>
+      <td>Pare-Lamongan-Jogja-Semarang</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>2023-03-08 18:47:24+00:00</td>
-      <td>@infobdg Tah flyover mah caheum Cileunyi,eta j...</td>
-      <td>Sevenfaris</td>
+      <td>2023-03-09 00:53:25+00:00</td>
+      <td>@babagan_bal @ruben_pekok @solehsolihun @ridwa...</td>
+      <td>jwscldh</td>
       <td></td>
     </tr>
     <tr>
       <th>2</th>
-      <td>2023-03-08 18:40:49+00:00</td>
-      <td>@ridwankamil Pa tolong dong saya, udh 3 tahun ...</td>
-      <td>donquixote370</td>
+      <td>2023-03-09 00:53:10+00:00</td>
+      <td>@Mudjali101 @ruben_pekok @solehsolihun @ridwan...</td>
+      <td>jwscldh</td>
       <td></td>
     </tr>
     <tr>
       <th>3</th>
-      <td>2023-03-08 18:40:49+00:00</td>
-      <td>@fauzi_badarudin @solehsolihun @ridwankamil Ak...</td>
-      <td>Gohanson711</td>
-      <td>Malang, Jawa Timur</td>
+      <td>2023-03-09 00:52:53+00:00</td>
+      <td>@solehsolihun @ridwankamil Sama diwilayah Bogo...</td>
+      <td>AndiraBatari</td>
+      <td>Jakarta</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>2023-03-08 18:40:39+00:00</td>
-      <td>@ghea_anjanii @solehsolihun @ridwankamil @ghea...</td>
-      <td>streampl7</td>
+      <td>2023-03-09 00:52:53+00:00</td>
+      <td>@Tiyuutiai @ruben_pekok @solehsolihun @ridwank...</td>
+      <td>jwscldh</td>
       <td></td>
     </tr>
     <tr>
@@ -550,44 +558,44 @@ Requirement already satisfied: PySocks!=1.5.7,&gt;=1.5.6 in /usr/local/lib/pytho
     </tr>
     <tr>
       <th>497</th>
-      <td>2023-03-08 13:22:27+00:00</td>
-      <td>@solehsolihun @ridwankamil Lagian mang Soleh b...</td>
-      <td>amrullah_y</td>
-      <td>-6.292424,107.137729</td>
-    </tr>
-    <tr>
-      <th>498</th>
-      <td>2023-03-08 13:22:22+00:00</td>
-      <td>Penggunaan mobil listrik sebagai mobil dinas m...</td>
-      <td>royyan_drlocks</td>
-      <td>ID</td>
-    </tr>
-    <tr>
-      <th>499</th>
-      <td>2023-03-08 13:22:08+00:00</td>
-      <td>@solehsolihun @ridwankamil Birokrasi di sekola...</td>
-      <td>PembasmiManusia</td>
-      <td>Indonesia</td>
-    </tr>
-    <tr>
-      <th>500</th>
-      <td>2023-03-08 13:22:03+00:00</td>
-      <td>@Andrabhaskara @ayasoraa @solehsolihun @ridwan...</td>
-      <td>coukyh</td>
+      <td>2023-03-08 15:49:15+00:00</td>
+      <td>@ghea_anjanii @solehsolihun @ridwankamil Janga...</td>
+      <td>Henoch09</td>
       <td></td>
     </tr>
     <tr>
+      <th>498</th>
+      <td>2023-03-08 15:49:15+00:00</td>
+      <td>Naha bisa jadi kieu nya ? @ridwankamil @walhij...</td>
+      <td>HendroW1977</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>499</th>
+      <td>2023-03-08 15:48:54+00:00</td>
+      <td>Selamat malam #SobatBima6 di wilayah #Ciayumaj...</td>
+      <td>bima6ciayumaja</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>500</th>
+      <td>2023-03-08 15:48:53+00:00</td>
+      <td>di Jepang kang EMil promosiiin Jabar habis2an ...</td>
+      <td>FitrahAlmubarak</td>
+      <td>Madinah Al munawwarah</td>
+    </tr>
+    <tr>
       <th>501</th>
-      <td>2023-03-08 13:21:29+00:00</td>
-      <td>"Saya sudah minta Pak Bupati untuk menegur &amp;am...</td>
-      <td>royyan_drlocks</td>
-      <td>ID</td>
+      <td>2023-03-08 15:48:52+00:00</td>
+      <td>@solehsolihun @ridwankamil Pakai kutipan pak A...</td>
+      <td>TimoraSinaga</td>
+      <td>Cilegon, Indonesia</td>
     </tr>
   </tbody>
 </table>
 <p>502 rows × 4 columns</p>
 </div>
-      <button class="colab-df-convert" onclick="convertToInteractive('df-53525b03-9710-4b47-b9fc-a1c0db5f398c')"
+      <button class="colab-df-convert" onclick="convertToInteractive('df-8404bf75-8ceb-4f15-8421-a9f2b92780e7')"
               title="Convert this dataframe to an interactive table."
               style="display:none;">
         
@@ -638,12 +646,12 @@ Requirement already satisfied: PySocks!=1.5.7,&gt;=1.5.6 in /usr/local/lib/pytho
 
       <script>
         const buttonEl =
-          document.querySelector('#df-53525b03-9710-4b47-b9fc-a1c0db5f398c button.colab-df-convert');
+          document.querySelector('#df-8404bf75-8ceb-4f15-8421-a9f2b92780e7 button.colab-df-convert');
         buttonEl.style.display =
           google.colab.kernel.accessAllowed ? 'block' : 'none';
 
         async function convertToInteractive(key) {
-          const element = document.querySelector('#df-53525b03-9710-4b47-b9fc-a1c0db5f398c');
+          const element = document.querySelector('#df-8404bf75-8ceb-4f15-8421-a9f2b92780e7');
           const dataTable =
             await google.colab.kernel.invokeFunction('convertToInteractive',
                                                      [key], {});
@@ -686,26 +694,26 @@ Requirement already satisfied: PySocks!=1.5.7,&gt;=1.5.6 in /usr/local/lib/pytho
 <span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">encoding</span> <span class="o">=</span> <span class="s1">&#39;utf-8-sig&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
 <span class="g g-Whitespace">      </span><span class="mi">5</span>   <span class="n">df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
 
-<span class="nn">/usr/local/lib/python3.8/dist-packages/google/colab/drive.py</span> in <span class="ni">mount</span><span class="nt">(mountpoint, force_remount, timeout_ms, readonly)</span>
+<span class="nn">/usr/local/lib/python3.9/dist-packages/google/colab/drive.py</span> in <span class="ni">mount</span><span class="nt">(mountpoint, force_remount, timeout_ms, readonly)</span>
 <span class="g g-Whitespace">     </span><span class="mi">98</span> <span class="k">def</span> <span class="nf">mount</span><span class="p">(</span><span class="n">mountpoint</span><span class="p">,</span> <span class="n">force_remount</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">timeout_ms</span><span class="o">=</span><span class="mi">120000</span><span class="p">,</span> <span class="n">readonly</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 <span class="g g-Whitespace">     </span><span class="mi">99</span><span class="w">   </span><span class="sd">&quot;&quot;&quot;Mount your Google Drive at the specified mountpoint path.&quot;&quot;&quot;</span>
 <span class="ne">--&gt; </span><span class="mi">100</span>   <span class="k">return</span> <span class="n">_mount</span><span class="p">(</span>
 <span class="g g-Whitespace">    </span><span class="mi">101</span>       <span class="n">mountpoint</span><span class="p">,</span>
 <span class="g g-Whitespace">    </span><span class="mi">102</span>       <span class="n">force_remount</span><span class="o">=</span><span class="n">force_remount</span><span class="p">,</span>
 
-<span class="nn">/usr/local/lib/python3.8/dist-packages/google/colab/drive.py</span> in <span class="ni">_mount</span><span class="nt">(mountpoint, force_remount, timeout_ms, ephemeral, readonly)</span>
+<span class="nn">/usr/local/lib/python3.9/dist-packages/google/colab/drive.py</span> in <span class="ni">_mount</span><span class="nt">(mountpoint, force_remount, timeout_ms, ephemeral, readonly)</span>
 <span class="g g-Whitespace">    </span><span class="mi">121</span>       <span class="s1">&#39;TBE_EPHEM_CREDS_ADDR&#39;</span><span class="p">]</span> <span class="k">if</span> <span class="n">ephemeral</span> <span class="k">else</span> <span class="n">_os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;TBE_CREDS_ADDR&#39;</span><span class="p">]</span>
 <span class="g g-Whitespace">    </span><span class="mi">122</span>   <span class="k">if</span> <span class="n">ephemeral</span><span class="p">:</span>
 <span class="ne">--&gt; </span><span class="mi">123</span>     <span class="n">_message</span><span class="o">.</span><span class="n">blocking_request</span><span class="p">(</span>
 <span class="g g-Whitespace">    </span><span class="mi">124</span>         <span class="s1">&#39;request_auth&#39;</span><span class="p">,</span> <span class="n">request</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;authType&#39;</span><span class="p">:</span> <span class="s1">&#39;dfs_ephemeral&#39;</span><span class="p">},</span> <span class="n">timeout_sec</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
 <span class="g g-Whitespace">    </span><span class="mi">125</span> 
 
-<span class="nn">/usr/local/lib/python3.8/dist-packages/google/colab/_message.py</span> in <span class="ni">blocking_request</span><span class="nt">(request_type, request, timeout_sec, parent)</span>
+<span class="nn">/usr/local/lib/python3.9/dist-packages/google/colab/_message.py</span> in <span class="ni">blocking_request</span><span class="nt">(request_type, request, timeout_sec, parent)</span>
 <span class="g g-Whitespace">    </span><span class="mi">169</span>   <span class="n">request_id</span> <span class="o">=</span> <span class="n">send_request</span><span class="p">(</span>
 <span class="g g-Whitespace">    </span><span class="mi">170</span>       <span class="n">request_type</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="n">parent</span><span class="p">,</span> <span class="n">expect_reply</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="ne">--&gt; </span><span class="mi">171</span>   <span class="k">return</span> <span class="n">read_reply_from_input</span><span class="p">(</span><span class="n">request_id</span><span class="p">,</span> <span class="n">timeout_sec</span><span class="p">)</span>
 
-<span class="nn">/usr/local/lib/python3.8/dist-packages/google/colab/_message.py</span> in <span class="ni">read_reply_from_input</span><span class="nt">(message_id, timeout_sec)</span>
+<span class="nn">/usr/local/lib/python3.9/dist-packages/google/colab/_message.py</span> in <span class="ni">read_reply_from_input</span><span class="nt">(message_id, timeout_sec)</span>
 <span class="g g-Whitespace">     </span><span class="mi">95</span>     <span class="n">reply</span> <span class="o">=</span> <span class="n">_read_next_input_message</span><span class="p">()</span>
 <span class="g g-Whitespace">     </span><span class="mi">96</span>     <span class="k">if</span> <span class="n">reply</span> <span class="o">==</span> <span class="n">_NOT_READY</span> <span class="ow">or</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">reply</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
 <span class="ne">---&gt; </span><span class="mi">97</span>       <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.025</span><span class="p">)</span>
