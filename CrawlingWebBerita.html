@@ -18,12 +18,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
 
   
-  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -37,8 +37,8 @@
     <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d" />
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
 
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
@@ -165,6 +165,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="CrawlingWebPTA.html">Crawling data Website https://pta.trunojoyo.ac.id/</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Crawling data Website Berita CNN</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pipelinesorchest.html">Pipelines Menggunakan Orchest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="UTS-Prosaindata.html">UTS PROSAINDATA</a></li>
 </ul>
 
     </div>
@@ -470,7 +471,7 @@ document.write(`
 </div>
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="ne">KeyboardInterrupt</span>Traceback (most recent call last)
-<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">2</span><span class="o">-</span><span class="n">b452f21a752a</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="nn">&lt;ipython-input-2-b452f21a752a&gt;</span> in <span class="ni">&lt;cell line: 13&gt;</span><span class="nt">()</span>
 <span class="g g-Whitespace">     </span><span class="mi">25</span> 
 <span class="g g-Whitespace">     </span><span class="mi">26</span>     <span class="k">if</span> <span class="n">link</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
 <span class="ne">---&gt; </span><span class="mi">27</span>       <span class="n">req2</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">link</span><span class="p">),</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span>
@@ -478,67 +479,83 @@ document.write(`
 <span class="g g-Whitespace">     </span><span class="mi">29</span>       <span class="n">items2</span> <span class="o">=</span> <span class="n">soup2</span><span class="o">.</span><span class="n">findAll</span><span class="p">(</span><span class="s2">&quot;div&quot;</span><span class="p">,</span> <span class="s2">&quot;detail_text&quot;</span><span class="p">)</span>
 
 <span class="nn">/usr/local/lib/python3.9/dist-packages/requests/api.py</span> in <span class="ni">get</span><span class="nt">(url, params, **kwargs)</span>
-<span class="g g-Whitespace">     </span><span class="mi">74</span> 
-<span class="g g-Whitespace">     </span><span class="mi">75</span>     <span class="n">kwargs</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;allow_redirects&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
-<span class="ne">---&gt; </span><span class="mi">76</span>     <span class="k">return</span> <span class="n">request</span><span class="p">(</span><span class="s1">&#39;get&#39;</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">77</span> 
-<span class="g g-Whitespace">     </span><span class="mi">78</span> 
+<span class="g g-Whitespace">     </span><span class="mi">73</span>     <span class="s2">&quot;&quot;&quot;</span>
+<span class="g g-Whitespace">     </span><span class="mi">74</span><span class="s2"> </span>
+<span class="ne">---&gt; </span><span class="mi">75</span><span class="s2">     return request(&#39;get&#39;, url, params=params, **kwargs)</span>
+<span class="g g-Whitespace">     </span><span class="mi">76</span><span class="s2"> </span>
+<span class="g g-Whitespace">     </span><span class="mi">77</span><span class="s2"> </span>
 
 <span class="nn">/usr/local/lib/python3.9/dist-packages/requests/api.py</span> in <span class="ni">request</span><span class="nt">(method, url, **kwargs)</span>
-<span class="g g-Whitespace">     </span><span class="mi">59</span>     <span class="c1"># cases, and look like a memory leak in others.</span>
-<span class="g g-Whitespace">     </span><span class="mi">60</span>     <span class="k">with</span> <span class="n">sessions</span><span class="o">.</span><span class="n">Session</span><span class="p">()</span> <span class="k">as</span> <span class="n">session</span><span class="p">:</span>
-<span class="ne">---&gt; </span><span class="mi">61</span>         <span class="k">return</span> <span class="n">session</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="n">method</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="n">url</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">62</span> 
-<span class="g g-Whitespace">     </span><span class="mi">63</span> 
+<span class="g g-Whitespace">     </span><span class="mi">59</span><span class="s2">     # cases, and look like a memory leak in others.</span>
+<span class="g g-Whitespace">     </span><span class="mi">60</span><span class="s2">     with sessions.Session() as session:</span>
+<span class="ne">---&gt; </span><span class="mi">61</span><span class="s2">         return session.request(method=method, url=url, **kwargs)</span>
+<span class="g g-Whitespace">     </span><span class="mi">62</span><span class="s2"> </span>
+<span class="g g-Whitespace">     </span><span class="mi">63</span><span class="s2"> </span>
 
 <span class="nn">/usr/local/lib/python3.9/dist-packages/requests/sessions.py</span> in <span class="ni">request</span><span class="nt">(self, method, url, params, data, headers, cookies, files, auth, timeout, allow_redirects, proxies, hooks, stream, verify, cert, json)</span>
-<span class="g g-Whitespace">    </span><span class="mi">540</span>         <span class="p">}</span>
-<span class="g g-Whitespace">    </span><span class="mi">541</span>         <span class="n">send_kwargs</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">settings</span><span class="p">)</span>
-<span class="ne">--&gt; </span><span class="mi">542</span>         <span class="n">resp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">prep</span><span class="p">,</span> <span class="o">**</span><span class="n">send_kwargs</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">543</span> 
-<span class="g g-Whitespace">    </span><span class="mi">544</span>         <span class="k">return</span> <span class="n">resp</span>
+<span class="g g-Whitespace">    </span><span class="mi">527</span><span class="s2">         }</span>
+<span class="g g-Whitespace">    </span><span class="mi">528</span><span class="s2">         send_kwargs.update(settings)</span>
+<span class="ne">--&gt; </span><span class="mi">529</span><span class="s2">         resp = self.send(prep, **send_kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">530</span><span class="s2"> </span>
+<span class="g g-Whitespace">    </span><span class="mi">531</span><span class="s2">         return resp</span>
 
 <span class="nn">/usr/local/lib/python3.9/dist-packages/requests/sessions.py</span> in <span class="ni">send</span><span class="nt">(self, request, **kwargs)</span>
-<span class="g g-Whitespace">    </span><span class="mi">695</span> 
-<span class="g g-Whitespace">    </span><span class="mi">696</span>         <span class="k">if</span> <span class="ow">not</span> <span class="n">stream</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">697</span>             <span class="n">r</span><span class="o">.</span><span class="n">content</span>
-<span class="g g-Whitespace">    </span><span class="mi">698</span> 
-<span class="g g-Whitespace">    </span><span class="mi">699</span>         <span class="k">return</span> <span class="n">r</span>
+<span class="g g-Whitespace">    </span><span class="mi">643</span><span class="s2"> </span>
+<span class="g g-Whitespace">    </span><span class="mi">644</span><span class="s2">         # Send the request</span>
+<span class="ne">--&gt; </span><span class="mi">645</span><span class="s2">         r = adapter.send(request, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">646</span><span class="s2"> </span>
+<span class="g g-Whitespace">    </span><span class="mi">647</span><span class="s2">         # Total elapsed time of the request (approximately)</span>
 
-<span class="nn">/usr/local/lib/python3.9/dist-packages/requests/models.py</span> in <span class="ni">content</span><span class="nt">(self)</span>
-<span class="g g-Whitespace">    </span><span class="mi">829</span>                 <span class="bp">self</span><span class="o">.</span><span class="n">_content</span> <span class="o">=</span> <span class="kc">None</span>
-<span class="g g-Whitespace">    </span><span class="mi">830</span>             <span class="k">else</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">831</span>                 <span class="bp">self</span><span class="o">.</span><span class="n">_content</span> <span class="o">=</span> <span class="sa">b</span><span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">iter_content</span><span class="p">(</span><span class="n">CONTENT_CHUNK_SIZE</span><span class="p">))</span> <span class="ow">or</span> <span class="sa">b</span><span class="s1">&#39;&#39;</span>
-<span class="g g-Whitespace">    </span><span class="mi">832</span> 
-<span class="g g-Whitespace">    </span><span class="mi">833</span>         <span class="bp">self</span><span class="o">.</span><span class="n">_content_consumed</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="nn">/usr/local/lib/python3.9/dist-packages/requests/adapters.py</span> in <span class="ni">send</span><span class="nt">(self, request, stream, timeout, verify, cert, proxies)</span>
+<span class="g g-Whitespace">    </span><span class="mi">438</span><span class="s2">         try:</span>
+<span class="g g-Whitespace">    </span><span class="mi">439</span><span class="s2">             if not chunked:</span>
+<span class="ne">--&gt; </span><span class="mi">440</span><span class="s2">                 resp = conn.urlopen(</span>
+<span class="g g-Whitespace">    </span><span class="mi">441</span><span class="s2">                     method=request.method,</span>
+<span class="g g-Whitespace">    </span><span class="mi">442</span><span class="s2">                     url=url,</span>
 
-<span class="nn">/usr/local/lib/python3.9/dist-packages/requests/models.py</span> in <span class="ni">generate</span><span class="nt">()</span>
-<span class="g g-Whitespace">    </span><span class="mi">751</span>             <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">raw</span><span class="p">,</span> <span class="s1">&#39;stream&#39;</span><span class="p">):</span>
-<span class="g g-Whitespace">    </span><span class="mi">752</span>                 <span class="k">try</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">753</span>                     <span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">raw</span><span class="o">.</span><span class="n">stream</span><span class="p">(</span><span class="n">chunk_size</span><span class="p">,</span> <span class="n">decode_content</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
-<span class="g g-Whitespace">    </span><span class="mi">754</span>                         <span class="k">yield</span> <span class="n">chunk</span>
-<span class="g g-Whitespace">    </span><span class="mi">755</span>                 <span class="k">except</span> <span class="n">ProtocolError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+<span class="nn">/usr/local/lib/python3.9/dist-packages/urllib3/connectionpool.py</span> in <span class="ni">urlopen</span><span class="nt">(self, method, url, body, headers, retries, redirect, assert_same_host, timeout, pool_timeout, release_conn, chunked, body_pos, **response_kw)</span>
+<span class="g g-Whitespace">    </span><span class="mi">701</span><span class="s2"> </span>
+<span class="g g-Whitespace">    </span><span class="mi">702</span><span class="s2">             # Make the request on the httplib connection object.</span>
+<span class="ne">--&gt; </span><span class="mi">703</span><span class="s2">             httplib_response = self._make_request(</span>
+<span class="g g-Whitespace">    </span><span class="mi">704</span><span class="s2">                 conn,</span>
+<span class="g g-Whitespace">    </span><span class="mi">705</span><span class="s2">                 method,</span>
 
-<span class="nn">/usr/local/lib/python3.9/dist-packages/urllib3/response.py</span> in <span class="ni">stream</span><span class="nt">(self, amt, decode_content)</span>
-<span class="g g-Whitespace">    </span><span class="mi">622</span>         <span class="s2">&quot;&quot;&quot;</span>
-<span class="g g-Whitespace">    </span><span class="mi">623</span><span class="s2">         if self.chunked and self.supports_chunked_reads():</span>
-<span class="ne">--&gt; </span><span class="mi">624</span><span class="s2">             for line in self.read_chunked(amt, decode_content=decode_content):</span>
-<span class="g g-Whitespace">    </span><span class="mi">625</span><span class="s2">                 yield line</span>
-<span class="g g-Whitespace">    </span><span class="mi">626</span><span class="s2">         else:</span>
+<span class="nn">/usr/local/lib/python3.9/dist-packages/urllib3/connectionpool.py</span> in <span class="ni">_make_request</span><span class="nt">(self, conn, method, url, timeout, chunked, **httplib_request_kw)</span>
+<span class="g g-Whitespace">    </span><span class="mi">447</span><span class="s2">                     # Python 3 (including for exceptions like SystemExit).</span>
+<span class="g g-Whitespace">    </span><span class="mi">448</span><span class="s2">                     # Otherwise it looks like a bug in the code.</span>
+<span class="ne">--&gt; </span><span class="mi">449</span><span class="s2">                     six.raise_from(e, None)</span>
+<span class="g g-Whitespace">    </span><span class="mi">450</span><span class="s2">         except (SocketTimeout, BaseSSLError, SocketError) as e:</span>
+<span class="g g-Whitespace">    </span><span class="mi">451</span><span class="s2">             self._raise_timeout(err=e, url=url, timeout_value=read_timeout)</span>
 
-<span class="nn">/usr/local/lib/python3.9/dist-packages/urllib3/response.py</span> in <span class="ni">read_chunked</span><span class="nt">(self, amt, decode_content)</span>
-<span class="g g-Whitespace">    </span><span class="mi">826</span><span class="s2"> </span>
-<span class="g g-Whitespace">    </span><span class="mi">827</span><span class="s2">             while True:</span>
-<span class="ne">--&gt; </span><span class="mi">828</span><span class="s2">                 self._update_chunk_length()</span>
-<span class="g g-Whitespace">    </span><span class="mi">829</span><span class="s2">                 if self.chunk_left == 0:</span>
-<span class="g g-Whitespace">    </span><span class="mi">830</span><span class="s2">                     break</span>
+<span class="nn">/usr/local/lib/python3.9/dist-packages/urllib3/packages/six.py</span> in <span class="ni">raise_from</span><span class="nt">(value, from_value)</span>
 
-<span class="nn">/usr/local/lib/python3.9/dist-packages/urllib3/response.py</span> in <span class="ni">_update_chunk_length</span><span class="nt">(self)</span>
-<span class="g g-Whitespace">    </span><span class="mi">756</span><span class="s2">         if self.chunk_left is not None:</span>
-<span class="g g-Whitespace">    </span><span class="mi">757</span><span class="s2">             return</span>
-<span class="ne">--&gt; </span><span class="mi">758</span><span class="s2">         line = self._fp.fp.readline()</span>
-<span class="g g-Whitespace">    </span><span class="mi">759</span><span class="s2">         line = line.split(b&quot;;&quot;, 1)[0]</span>
-<span class="g g-Whitespace">    </span><span class="mi">760</span><span class="s2">         try:</span>
+<span class="nn">/usr/local/lib/python3.9/dist-packages/urllib3/connectionpool.py</span> in <span class="ni">_make_request</span><span class="nt">(self, conn, method, url, timeout, chunked, **httplib_request_kw)</span>
+<span class="g g-Whitespace">    </span><span class="mi">442</span><span class="s2">                 # Python 3</span>
+<span class="g g-Whitespace">    </span><span class="mi">443</span><span class="s2">                 try:</span>
+<span class="ne">--&gt; </span><span class="mi">444</span><span class="s2">                     httplib_response = conn.getresponse()</span>
+<span class="g g-Whitespace">    </span><span class="mi">445</span><span class="s2">                 except BaseException as e:</span>
+<span class="g g-Whitespace">    </span><span class="mi">446</span><span class="s2">                     # Remove the TypeError from the exception chain in</span>
+
+<span class="nn">/usr/lib/python3.9/http/client.py</span> in <span class="ni">getresponse</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1375</span><span class="s2">         try:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1376</span><span class="s2">             try:</span>
+<span class="ne">-&gt; </span><span class="mi">1377</span><span class="s2">                 response.begin()</span>
+<span class="g g-Whitespace">   </span><span class="mi">1378</span><span class="s2">             except ConnectionError:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1379</span><span class="s2">                 self.close()</span>
+
+<span class="nn">/usr/lib/python3.9/http/client.py</span> in <span class="ni">begin</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">    </span><span class="mi">318</span><span class="s2">         # read until we get a non-100 response</span>
+<span class="g g-Whitespace">    </span><span class="mi">319</span><span class="s2">         while True:</span>
+<span class="ne">--&gt; </span><span class="mi">320</span><span class="s2">             version, status, reason = self._read_status()</span>
+<span class="g g-Whitespace">    </span><span class="mi">321</span><span class="s2">             if status != CONTINUE:</span>
+<span class="g g-Whitespace">    </span><span class="mi">322</span><span class="s2">                 break</span>
+
+<span class="nn">/usr/lib/python3.9/http/client.py</span> in <span class="ni">_read_status</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">    </span><span class="mi">279</span><span class="s2"> </span>
+<span class="g g-Whitespace">    </span><span class="mi">280</span><span class="s2">     def _read_status(self):</span>
+<span class="ne">--&gt; </span><span class="mi">281</span><span class="s2">         line = str(self.fp.readline(_MAXLINE + 1), &quot;iso-8859-1&quot;)</span>
+<span class="g g-Whitespace">    </span><span class="mi">282</span><span class="s2">         if len(line) &gt; _MAXLINE:</span>
+<span class="g g-Whitespace">    </span><span class="mi">283</span><span class="s2">             raise LineTooLong(&quot;status line&quot;)</span>
 
 <span class="nn">/usr/lib/python3.9/socket.py</span> in <span class="ni">readinto</span><span class="nt">(self, b)</span>
 <span class="g g-Whitespace">    </span><span class="mi">702</span><span class="s2">         while True:</span>
@@ -614,7 +631,10 @@ document.write(`
               
               
                 <footer class="bd-footer-article">
-                  <!-- Previous / next buttons -->
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
        href="CrawlingWebPTA.html"
@@ -634,7 +654,10 @@ document.write(`
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
+</div></div>
+  
 </div>
+
                 </footer>
               
             </div>
@@ -660,7 +683,7 @@ document.write(`
             
           </div>
           <footer class="bd-footer-content">
-            <div class="bd-footer-content__inner">
+            
 <div class="bd-footer-content__inner container">
   
   <div class="footer-item">
@@ -690,7 +713,7 @@ By Muhammad Hanif Santoso
     
   </div>
   
-</div></div>
+</div>
           </footer>
         
 
@@ -699,8 +722,8 @@ By Muhammad Hanif Santoso
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d"></script>
+  <script src="_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
 
   <footer class="bd-footer">
   </footer>
