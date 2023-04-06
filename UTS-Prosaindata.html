@@ -405,6 +405,7 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#splitting-data">Splitting Data</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pemodelan-knn">Pemodelan KNN</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pemodelan-naive-bayes">Pemodelan Naive Bayes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#k-means-clustering">K-MEANS Clustering</a></li>
 </ul>
 </li>
 </ul>
@@ -451,14 +452,14 @@ document.write(`
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://raw.githubusercontent.com/HanifSantoso05/dataset_matkul/main/dataset-baru.csv&#39;</span><span class="p">)</span>
-<span class="n">data</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://raw.githubusercontent.com/HanifSantoso05/dataset_matkul/main/dataset-baru.csv&#39;</span><span class="p">)</span>
+<span class="n">data_df</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-  <div id="df-e4f714dd-a592-4eae-ad95-273308d7328b">
+  <div id="df-be144e34-a94b-468f-94b9-fb3ad2bcc510">
     <div class="colab-df-container">
       <div>
 <style scoped>
@@ -554,7 +555,7 @@ document.write(`
 </table>
 <p>805 rows × 3 columns</p>
 </div>
-      <button class="colab-df-convert" onclick="convertToInteractive('df-e4f714dd-a592-4eae-ad95-273308d7328b')"
+      <button class="colab-df-convert" onclick="convertToInteractive('df-be144e34-a94b-468f-94b9-fb3ad2bcc510')"
               title="Convert this dataframe to an interactive table."
               style="display:none;">
         
@@ -605,12 +606,12 @@ document.write(`
 
       <script>
         const buttonEl =
-          document.querySelector('#df-e4f714dd-a592-4eae-ad95-273308d7328b button.colab-df-convert');
+          document.querySelector('#df-be144e34-a94b-468f-94b9-fb3ad2bcc510 button.colab-df-convert');
         buttonEl.style.display =
           google.colab.kernel.accessAllowed ? 'block' : 'none';
 
         async function convertToInteractive(key) {
-          const element = document.querySelector('#df-e4f714dd-a592-4eae-ad95-273308d7328b');
+          const element = document.querySelector('#df-be144e34-a94b-468f-94b9-fb3ad2bcc510');
           const dataTable =
             await google.colab.kernel.invokeFunction('convertToInteractive',
                                                      [key], {});
@@ -639,8 +640,8 @@ document.write(`
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Insialisai variable yang akan dilakukan case folding dengan fungsi lower()</span>
-<span class="n">lower_case_abstrak</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;Abstrak&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
-<span class="n">lower_case_label</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;Kategori&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+<span class="n">lower_case_abstrak</span> <span class="o">=</span> <span class="n">data_df</span><span class="p">[</span><span class="s1">&#39;Abstrak&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+<span class="n">lower_case_label</span> <span class="o">=</span> <span class="n">data_df</span><span class="p">[</span><span class="s1">&#39;Kategori&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
 
 <span class="c1">#Menampilkan data yang telah dilakukan case folding</span>
 <span class="n">data_lower_case</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">lower_case_abstrak</span><span class="p">)</span>
@@ -650,7 +651,7 @@ document.write(`
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-  <div id="df-b5c1bf38-8956-4f20-b40c-53475edcd08e">
+  <div id="df-d4a1d3d3-b142-45a8-9d7c-ddbcc0a2dbb1">
     <div class="colab-df-container">
       <div>
 <style scoped>
@@ -722,7 +723,7 @@ document.write(`
 </table>
 <p>805 rows × 1 columns</p>
 </div>
-      <button class="colab-df-convert" onclick="convertToInteractive('df-b5c1bf38-8956-4f20-b40c-53475edcd08e')"
+      <button class="colab-df-convert" onclick="convertToInteractive('df-d4a1d3d3-b142-45a8-9d7c-ddbcc0a2dbb1')"
               title="Convert this dataframe to an interactive table."
               style="display:none;">
         
@@ -773,12 +774,12 @@ document.write(`
 
       <script>
         const buttonEl =
-          document.querySelector('#df-b5c1bf38-8956-4f20-b40c-53475edcd08e button.colab-df-convert');
+          document.querySelector('#df-d4a1d3d3-b142-45a8-9d7c-ddbcc0a2dbb1 button.colab-df-convert');
         buttonEl.style.display =
           google.colab.kernel.accessAllowed ? 'block' : 'none';
 
         async function convertToInteractive(key) {
-          const element = document.querySelector('#df-b5c1bf38-8956-4f20-b40c-53475edcd08e');
+          const element = document.querySelector('#df-d4a1d3d3-b142-45a8-9d7c-ddbcc0a2dbb1');
           const dataTable =
             await google.colab.kernel.invokeFunction('convertToInteractive',
                                                      [key], {});
@@ -826,7 +827,7 @@ document.write(`
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-  <div id="df-c66b11ce-9d54-417f-9fbe-da5f7dd87f6d">
+  <div id="df-31e71c07-0afc-44a9-a497-e6a345330eef">
     <div class="colab-df-container">
       <div>
 <style scoped>
@@ -898,7 +899,7 @@ document.write(`
 </table>
 <p>805 rows × 1 columns</p>
 </div>
-      <button class="colab-df-convert" onclick="convertToInteractive('df-c66b11ce-9d54-417f-9fbe-da5f7dd87f6d')"
+      <button class="colab-df-convert" onclick="convertToInteractive('df-31e71c07-0afc-44a9-a497-e6a345330eef')"
               title="Convert this dataframe to an interactive table."
               style="display:none;">
         
@@ -949,12 +950,12 @@ document.write(`
 
       <script>
         const buttonEl =
-          document.querySelector('#df-c66b11ce-9d54-417f-9fbe-da5f7dd87f6d button.colab-df-convert');
+          document.querySelector('#df-31e71c07-0afc-44a9-a497-e6a345330eef button.colab-df-convert');
         buttonEl.style.display =
           google.colab.kernel.accessAllowed ? 'block' : 'none';
 
         async function convertToInteractive(key) {
-          const element = document.querySelector('#df-c66b11ce-9d54-417f-9fbe-da5f7dd87f6d');
+          const element = document.querySelector('#df-31e71c07-0afc-44a9-a497-e6a345330eef');
           const dataTable =
             await google.colab.kernel.invokeFunction('convertToInteractive',
                                                      [key], {});
@@ -1058,18 +1059,11 @@ document.write(`
 <span class="ne">--&gt; </span><span class="mi">137</span>     <span class="k">return</span> <span class="n">LineTokenizer</span><span class="p">(</span><span class="n">blanklines</span><span class="p">)</span><span class="o">.</span><span class="n">tokenize</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
 
 <span class="nn">/usr/local/lib/python3.9/dist-packages/nltk/tokenize/simple.py</span> in <span class="ni">tokenize</span><span class="nt">(self, s)</span>
+<span class="g g-Whitespace">    </span><span class="mi">111</span> 
+<span class="g g-Whitespace">    </span><span class="mi">112</span>     <span class="k">def</span> <span class="nf">tokenize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">s</span><span class="p">):</span>
+<span class="ne">--&gt; </span><span class="mi">113</span>         <span class="n">lines</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">splitlines</span><span class="p">()</span>
 <span class="g g-Whitespace">    </span><span class="mi">114</span>         <span class="c1"># If requested, strip off blank lines.</span>
 <span class="g g-Whitespace">    </span><span class="mi">115</span>         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_blanklines</span> <span class="o">==</span> <span class="s2">&quot;discard&quot;</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">116</span>             <span class="n">lines</span> <span class="o">=</span> <span class="p">[</span><span class="n">l</span> <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">lines</span> <span class="k">if</span> <span class="n">l</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()]</span>
-<span class="g g-Whitespace">    </span><span class="mi">117</span>         <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_blanklines</span> <span class="o">==</span> <span class="s2">&quot;discard-eof&quot;</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">118</span>             <span class="k">if</span> <span class="n">lines</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">lines</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">():</span>
-
-<span class="nn">/usr/local/lib/python3.9/dist-packages/nltk/tokenize/simple.py</span> in <span class="ni">&lt;listcomp&gt;</span><span class="nt">(.0)</span>
-<span class="g g-Whitespace">    </span><span class="mi">114</span>         <span class="c1"># If requested, strip off blank lines.</span>
-<span class="g g-Whitespace">    </span><span class="mi">115</span>         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_blanklines</span> <span class="o">==</span> <span class="s2">&quot;discard&quot;</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">116</span>             <span class="n">lines</span> <span class="o">=</span> <span class="p">[</span><span class="n">l</span> <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">lines</span> <span class="k">if</span> <span class="n">l</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()]</span>
-<span class="g g-Whitespace">    </span><span class="mi">117</span>         <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_blanklines</span> <span class="o">==</span> <span class="s2">&quot;discard-eof&quot;</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">118</span>             <span class="k">if</span> <span class="n">lines</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">lines</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">():</span>
 
 <span class="ne">KeyboardInterrupt</span>: 
 </pre></div>
@@ -1091,7 +1085,8 @@ document.write(`
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Looking in indexes: https://pypi.org/simple, https://us-python.pkg.dev/colab-wheels/public/simple/
 Collecting Sastrawi
   Downloading Sastrawi-1.0.1-py2.py3-none-any.whl (209 kB)
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">209.7/209.7 KB</span> <span class=" -Color -Color-Red">14.3 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
+?25l     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">0.0/209.7 KB</span> <span class=" -Color -Color-Red">?</span> eta <span class=" -Color -Color-Cyan">-:--:--</span>
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">209.7/209.7 KB</span> <span class=" -Color -Color-Red">13.2 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
 ?25hInstalling collected packages: Sastrawi
 Successfully installed Sastrawi-1.0.1
 </pre></div>
@@ -1121,7 +1116,7 @@ Successfully installed Sastrawi-1.0.1
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-  <div id="df-86aa0606-fe73-4a5d-87e6-fd8e431d1cfe">
+  <div id="df-50e80c04-4646-4547-83e1-7ab778c668c9">
     <div class="colab-df-container">
       <div>
 <style scoped>
@@ -1193,7 +1188,7 @@ Successfully installed Sastrawi-1.0.1
 </table>
 <p>805 rows × 1 columns</p>
 </div>
-      <button class="colab-df-convert" onclick="convertToInteractive('df-86aa0606-fe73-4a5d-87e6-fd8e431d1cfe')"
+      <button class="colab-df-convert" onclick="convertToInteractive('df-50e80c04-4646-4547-83e1-7ab778c668c9')"
               title="Convert this dataframe to an interactive table."
               style="display:none;">
         
@@ -1244,12 +1239,12 @@ Successfully installed Sastrawi-1.0.1
 
       <script>
         const buttonEl =
-          document.querySelector('#df-86aa0606-fe73-4a5d-87e6-fd8e431d1cfe button.colab-df-convert');
+          document.querySelector('#df-50e80c04-4646-4547-83e1-7ab778c668c9 button.colab-df-convert');
         buttonEl.style.display =
           google.colab.kernel.accessAllowed ? 'block' : 'none';
 
         async function convertToInteractive(key) {
-          const element = document.querySelector('#df-86aa0606-fe73-4a5d-87e6-fd8e431d1cfe');
+          const element = document.querySelector('#df-50e80c04-4646-4547-83e1-7ab778c668c9');
           const dataTable =
             await google.colab.kernel.invokeFunction('convertToInteractive',
                                                      [key], {});
@@ -1613,7 +1608,28 @@ Successfully installed Sastrawi-1.0.1
 [&#39;sma&#39;, &#39;negeri&#39;, &#39;sekar&#39;, &#39;sekolah&#39;, &#39;lingkung&#39;, &#39;dinas&#39;, &#39;didik&#39;, &#39;kabupaten&#39;, &#39;lamongan&#39;, &#39;sekolah&#39;, &#39;milik&#39;, &#39;siswa&#39;, &#39;salah&#39;, &#39;sekolah&#39;, &#39;adiwiyata&#39;, &#39;kabupaten&#39;, &#39;lamongan&#39;, &#39;sekolah&#39;, &#39;butuh&#39;, &#39;sistem&#39;, &#39;informasi&#39;, &#39;integrasi&#39;, &#39;pantau&#39;, &#39;siswa&#39;, &#39;alumni&#39;, &#39;realtime&#39;, &#39;student&#39;, &#39;lifecycle&#39;, &#39;management&#39;, &#39;sma&#39;, &#39;n&#39;, &#39;sekar&#39;, &#39;sistem&#39;, &#39;informasi&#39;, &#39;lapor&#39;, &#39;aktif&#39;, &#39;siswa&#39;, &#39;daftar&#39;, &#39;alumni&#39;, &#39;basis&#39;, &#39;web&#39;, &#39;bantu&#39;, &#39;cepat&#39;, &#39;kualitas&#39;, &#39;informasi&#39;, &#39;akademik&#39;, &#39;modul&#39;, &#39;sistem&#39;, &#39;student&#39;, &#39;accounting&#39;, &#39;student&#39;, &#39;administration&#39;, &#39;event&#39;, &#39;planing&#39;, &#39;teaching&#39;, &#39;and&#39;, &#39;study&#39;, &#39;dasar&#39;, &#39;hasil&#39;, &#39;uji&#39;, &#39;fungsionalitas&#39;, &#39;simpul&#39;, &#39;deskripsi&#39;, &#39;sesuai&#39;, &#39;desain&#39;, &#39;student&#39;, &#39;lifecycle&#39;, &#39;management&#39;, &#39;rancang&#39;]
 [&#39;rekomendasi&#39;, &#39;saran&#39;, &#39;pemberitahuan&#39;, &#39;percaya&#39;, &#39;anggap&#39;, &#39;kondisi&#39;, &#39;mana&#39;, &#39;kondisi&#39;, &#39;pustaka&#39;, &#39;bantu&#39;, &#39;mahasiswa&#39;, &#39;cari&#39;, &#39;buku&#39;, &#39;dukung&#39;, &#39;sesuai&#39;, &#39;butuh&#39;, &#39;bantu&#39;, &#39;masalah&#39;, &#39;hadap&#39;, &#39;mahasiswa&#39;, &#39;aplikasi&#39;, &#39;manfaat&#39;, &#39;data&#39;, &#39;histori&#39;, &#39;transaksi&#39;, &#39;pinjam&#39;, &#39;buku&#39;, &#39;pustaka&#39;, &#39;universitas&#39;, &#39;trunojoyo&#39;, &#39;madura&#39;, &#39;periode&#39;, &#39;aplikasi&#39;, &#39;bantu&#39;, &#39;mahasiswa&#39;, &#39;cari&#39;, &#39;dukung&#39;, &#39;ajar&#39;, &#39;metode&#39;, &#39;aplikasi&#39;, &#39;association&#39;, &#39;rules&#39;, &#39;cari&#39;, &#39;hubung&#39;, &#39;kombinasi&#39;, &#39;muncul&#39;, &#39;item&#39;, &#39;algoritma&#39;, &#39;frequent&#39;, &#39;pattern&#39;, &#39;growth&#39;, &#39;himpun&#39;, &#39;data&#39;, &#39;muncul&#39;, &#39;frequent&#39;, &#39;itemset&#39;, &#39;kumpul&#39;, &#39;data&#39;, &#39;transaksi&#39;, &#39;pinjam&#39;, &#39;buku&#39;, &#39;pustaka&#39;, &#39;hasil&#39;, &#39;uji&#39;, &#39;coba&#39;, &#39;teliti&#39;, &#39;temu&#39;, &#39;data&#39;, &#39;transaksi&#39;, &#39;olah&#39;, &#39;kombinasi&#39;, &#39;itemset&#39;, &#39;bentuk&#39;, &#39;sistem&#39;, &#39;hasil&#39;, &#39;rekomendasi&#39;, &#39;nilai&#39;, &#39;minimum&#39;, &#39;support&#39;, &#39;diinputkan&#39;, &#39;kombinasi&#39;, &#39;bentuk&#39;, &#39;nilai&#39;, &#39;minimum&#39;, &#39;support&#39;, &#39;diinputkan&#39;, &#39;kombinasi&#39;, &#39;bentuk&#39;, &#39;rekomendasi&#39;, &#39;association&#39;, &#39;rules&#39;, &#39;algoritma&#39;, &#39;fp&#39;, &#39;growth&#39;]
 [&#39;universitas&#39;, &#39;trunojoyo&#39;, &#39;madura&#39;, &#39;utm&#39;, &#39;salah&#39;, &#39;guru&#39;, &#39;negeri&#39;, &#39;madura&#39;, &#39;jawa&#39;, &#39;timur&#39;, &#39;instansi&#39;, &#39;sekolah&#39;, &#39;guru&#39;, &#39;lepas&#39;, &#39;evaluasi&#39;, &#39;ajar&#39;, &#39;cipta&#39;, &#39;efektifitas&#39;, &#39;kualitas&#39;, &#39;stake&#39;, &#39;holder&#39;, &#39;stake&#39;, &#39;holder&#39;, &#39;dosen&#39;, &#39;tim&#39;, &#39;jamin&#39;, &#39;mutu&#39;, &#39;ambil&#39;, &#39;studi&#39;, &#39;program&#39;, &#39;studi&#39;, &#39;teknik&#39;, &#39;informatika&#39;, &#39;universitas&#39;, &#39;trunojoyo&#39;, &#39;madura&#39;, &#39;ketidakpuasan&#39;, &#39;mahasiswa&#39;, &#39;proses&#39;, &#39;ajar&#39;, &#39;ajar&#39;, &#39;semester&#39;, &#39;periode&#39;, &#39;tuang&#39;, &#39;bentuk&#39;, &#39;kuisioner&#39;, &#39;manual&#39;, &#39;bentuk&#39;, &#39;kertas&#39;, &#39;buat&#39;, &#39;sistem&#39;, &#39;salah&#39;, &#39;metode&#39;, &#39;metode&#39;, &#39;simple&#39;, &#39;additive&#39;, &#39;weight&#39;, &#39;saw&#39;, &#39;tuju&#39;, &#39;sistem&#39;, &#39;evaluasi&#39;, &#39;proses&#39;, &#39;pembelajarn&#39;, &#39;hasil&#39;, &#39;nilai&#39;, &#39;ipd&#39;, &#39;matakuliah&#39;, &#39;dosen&#39;, &#39;tingkat&#39;, &#39;didik&#39;, &#39;proses&#39;, &#39;ajar&#39;, &#39;ajar&#39;, &#39;efektif&#39;, &#39;hasil&#39;, &#39;uji&#39;, &#39;sistem&#39;, &#39;simple&#39;, &#39;additive&#39;, &#39;weight&#39;, &#39;saw&#39;, &#39;capai&#39;, &#39;tingkat&#39;, &#39;akurasi&#39;, &#39;data&#39;, &#39;latih&#39;, &#39;user&#39;, &#39;data&#39;, &#39;uji&#39;, &#39;user&#39;, &#39;metode&#39;, &#39;simple&#39;, &#39;additive&#39;, &#39;weight&#39;, &#39;saw&#39;, &#39;evaluasi&#39;, &#39;matakuliah&#39;, &#39;capai&#39;, &#39;tingkat&#39;, &#39;akurasi&#39;, &#39;tinggi&#39;]
-[&#39;teknologi&#39;, &#39;alami&#39;, &#39;ubah&#39;, &#39;bidang&#39;, &#39;multimedia&#39;, &#39;kembang&#39;, &#39;teknologi&#39;, &#39;pesat&#39;, &#39;dampak&#39;, &#39;aspek&#39;, &#39;era&#39;, &#39;teknologi&#39;, &#39;modern&#39;, &#39;multimedia&#39;, &#39;game&#39;, &#39;main&#39;, &#39;manfaat&#39;, &#39;media&#39;, &#39;ajar&#39;, &#39;senang&#39;, &#39;software&#39;, &#39;buat&#39;, &#39;game&#39;, &#39;edukasi&#39;, &#39;kembang&#39;, &#39;pesat&#39;, &#39;kalang&#39;, &#39;masyarakat&#39;, &#39;anak&#39;, &#39;anak&#39;, &#39;main&#39;, &#39;game&#39;, &#39;gadget&#39;, &#39;nya&#39;, &#39;salah&#39;, &#39;game&#39;, &#39;tugas&#39;, &#39;ta&#39;, &#39;game&#39;, &#39;kenal&#39;, &#39;huruf&#39;, &#39;angka&#39;, &#39;nyanyi&#39;, &#39;game&#39;, &#39;kenal&#39;, &#39;huruf&#39;, &#39;angka&#39;, &#39;nyanyi&#39;, &#39;main&#39;, &#39;tuju&#39;, &#39;kenal&#39;, &#39;huruf&#39;, &#39;angka&#39;, &#39;nyanyi&#39;, &#39;hilang&#39;, &#39;makan&#39;, &#39;zaman&#39;, &#39;game&#39;, &#39;banyak&#39;, &#39;main&#39;, &#39;kalang&#39;, &#39;anak&#39;, &#39;anak&#39;, &#39;game&#39;, &#39;saji&#39;, &#39;game&#39;, &#39;tebak&#39;, &#39;huruf&#39;, &#39;angka&#39;, &#39;latih&#39;, &#39;imajinasi&#39;, &#39;daya&#39;, &#39;anak&#39;, &#39;game&#39;, &#39;sifat&#39;, &#39;user&#39;, &#39;friendly&#39;, &#39;mudah&#39;, &#39;main&#39;, &#39;responden&#39;, &#39;sulit&#39;, &#39;main&#39;, &#39;sisa&#39;, &#39;responden&#39;, &#39;game&#39;, &#39;tarik&#39;, &#39;sisi&#39;, &#39;materi&#39;, &#39;responden&#39;, &#39;bantu&#39;, &#39;main&#39;, &#39;sisa&#39;, &#39;bantu&#39;, &#39;game&#39;, &#39;kenal&#39;, &#39;huruf&#39;, &#39;edukasi&#39;, &#39;huruf&#39;, &#39;angka&#39;, &#39;benyanyi&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="melakukan-penggabungan-kata-dari-hasil-tokenisasi">
+<h3>Melakukan penggabungan kata dari hasil tokenisasi<a class="headerlink" href="#melakukan-penggabungan-kata-dari-hasil-tokenisasi" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gabung</span><span class="o">=</span><span class="p">[]</span>
+<span class="c1">#Membuat perulangan untuk menggabungkan kata</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">words</span><span class="p">)):</span>
+  <span class="n">joinkata</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">words</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+  <span class="n">gabung</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">joinkata</span><span class="p">)</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">gabung</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Join Kata&#39;</span><span class="p">])</span>
+<span class="n">result</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;teknologi&#39;, &#39;alami&#39;, &#39;ubah&#39;, &#39;bidang&#39;, &#39;multimedia&#39;, &#39;kembang&#39;, &#39;teknologi&#39;, &#39;pesat&#39;, &#39;dampak&#39;, &#39;aspek&#39;, &#39;era&#39;, &#39;teknologi&#39;, &#39;modern&#39;, &#39;multimedia&#39;, &#39;game&#39;, &#39;main&#39;, &#39;manfaat&#39;, &#39;media&#39;, &#39;ajar&#39;, &#39;senang&#39;, &#39;software&#39;, &#39;buat&#39;, &#39;game&#39;, &#39;edukasi&#39;, &#39;kembang&#39;, &#39;pesat&#39;, &#39;kalang&#39;, &#39;masyarakat&#39;, &#39;anak&#39;, &#39;anak&#39;, &#39;main&#39;, &#39;game&#39;, &#39;gadget&#39;, &#39;nya&#39;, &#39;salah&#39;, &#39;game&#39;, &#39;tugas&#39;, &#39;ta&#39;, &#39;game&#39;, &#39;kenal&#39;, &#39;huruf&#39;, &#39;angka&#39;, &#39;nyanyi&#39;, &#39;game&#39;, &#39;kenal&#39;, &#39;huruf&#39;, &#39;angka&#39;, &#39;nyanyi&#39;, &#39;main&#39;, &#39;tuju&#39;, &#39;kenal&#39;, &#39;huruf&#39;, &#39;angka&#39;, &#39;nyanyi&#39;, &#39;hilang&#39;, &#39;makan&#39;, &#39;zaman&#39;, &#39;game&#39;, &#39;banyak&#39;, &#39;main&#39;, &#39;kalang&#39;, &#39;anak&#39;, &#39;anak&#39;, &#39;game&#39;, &#39;saji&#39;, &#39;game&#39;, &#39;tebak&#39;, &#39;huruf&#39;, &#39;angka&#39;, &#39;latih&#39;, &#39;imajinasi&#39;, &#39;daya&#39;, &#39;anak&#39;, &#39;game&#39;, &#39;sifat&#39;, &#39;user&#39;, &#39;friendly&#39;, &#39;mudah&#39;, &#39;main&#39;, &#39;responden&#39;, &#39;sulit&#39;, &#39;main&#39;, &#39;sisa&#39;, &#39;responden&#39;, &#39;game&#39;, &#39;tarik&#39;, &#39;sisi&#39;, &#39;materi&#39;, &#39;responden&#39;, &#39;bantu&#39;, &#39;main&#39;, &#39;sisa&#39;, &#39;bantu&#39;, &#39;game&#39;, &#39;kenal&#39;, &#39;huruf&#39;, &#39;edukasi&#39;, &#39;huruf&#39;, &#39;angka&#39;, &#39;benyanyi&#39;]
 [&#39;teknologi&#39;, &#39;alami&#39;, &#39;ubah&#39;, &#39;pesat&#39;, &#39;bidang&#39;, &#39;multimedia&#39;, &#39;kembang&#39;, &#39;tekhnologi&#39;, &#39;pesat&#39;, &#39;dampak&#39;, &#39;aspek&#39;, &#39;era&#39;, &#39;teknologi&#39;, &#39;modern&#39;, &#39;multimedia&#39;, &#39;game&#39;, &#39;dar&#39;, &#39;main&#39;, &#39;buat&#39;, &#39;media&#39;, &#39;ajar&#39;, &#39;senang&#39;, &#39;manfaat&#39;, &#39;software&#39;, &#39;buat&#39;, &#39;game&#39;, &#39;edukasi&#39;, &#39;kembang&#39;, &#39;masyarakat&#39;, &#39;kalang&#39;, &#39;anak&#39;, &#39;anak&#39;, &#39;main&#39;, &#39;jenis&#39;, &#39;game&#39;, &#39;game&#39;, &#39;tugas&#39;, &#39;ta&#39;, &#39;game&#39;, &#39;iqra&#39;, &#39;bas&#39;, &#39;game&#39;, &#39;edukasi&#39;, &#39;game&#39;, &#39;iqra&#39;, &#39;main&#39;, &#39;tuju&#39;, &#39;kenal&#39;, &#39;huruf&#39;, &#39;hijaiyah&#39;, &#39;baca&#39;, &#39;harokat&#39;, &#39;game&#39;, &#39;ajar&#39;, &#39;nikmat&#39;, &#39;main&#39;, &#39;tebak&#39;, &#39;huruf&#39;, &#39;hijaiyah&#39;, &#39;ajar&#39;, &#39;menu&#39;, &#39;latih&#39;, &#39;logika&#39;, &#39;imajinasi&#39;, &#39;anak&#39;, &#39;baca&#39;, &#39;tulis&#39;, &#39;al&#39;, &#39;qur&#39;, &#39;an&#39;, &#39;anak&#39;, &#39;anak&#39;, &#39;kelas&#39;, &#39;tpq&#39;, &#39;tpa&#39;, &#39;batas&#39;, &#39;metode&#39;, &#39;ajar&#39;, &#39;bosan&#39;, &#39;tarik&#39;, &#39;game&#39;, &#39;rancang&#39;, &#39;game&#39;, &#39;tarik&#39;, &#39;senang&#39;, &#39;tingkat&#39;, &#39;mampu&#39;, &#39;anak&#39;, &#39;anak&#39;, &#39;kenal&#39;, &#39;baca&#39;, &#39;huruf&#39;, &#39;hijaiyah&#39;, &#39;dasar&#39;, &#39;hasil&#39;, &#39;ujicoba&#39;, &#39;geme&#39;, &#39;user&#39;, &#39;friendly&#39;, &#39;responden&#39;, &#39;game&#39;, &#39;sulit&#39;, &#39;main&#39;, &#39;responden&#39;, &#39;game&#39;, &#39;tarik&#39;, &#39;sisi&#39;, &#39;materi&#39;, &#39;responden&#39;, &#39;bantu&#39;, &#39;main&#39;, &#39;game&#39;, &#39;iqra&#39;, &#39;game&#39;, &#39;iqra&#39;, &#39;edukasi&#39;, &#39;huruf&#39;, &#39;hijaiyah&#39;, &#39;anak&#39;]
 [&#39;smk&#39;, &#39;negeri&#39;, &#39;surabaya&#39;, &#39;salah&#39;, &#39;smk&#39;, &#39;teknologi&#39;, &#39;industri&#39;, &#39;unggul&#39;, &#39;surabaya&#39;, &#39;manfaat&#39;, &#39;teknologi&#39;, &#39;informasi&#39;, &#39;komunikasi&#39;, &#39;tik&#39;, &#39;maksimal&#39;, &#39;lemah&#39;, &#39;temu&#39;, &#39;sistem&#39;, &#39;hambat&#39;, &#39;sebar&#39;, &#39;arus&#39;, &#39;informasi&#39;, &#39;butuh&#39;, &#39;sistem&#39;, &#39;rancang&#39;, &#39;bantu&#39;, &#39;akomodasi&#39;, &#39;kelola&#39;, &#39;informasi&#39;, &#39;akademik&#39;, &#39;mudah&#39;, &#39;kerja&#39;, &#39;guru&#39;, &#39;staf&#39;, &#39;tugas&#39;, &#39;kelola&#39;, &#39;data&#39;, &#39;akademik&#39;, &#39;bantu&#39;, &#39;cepat&#39;, &#39;sebar&#39;, &#39;informasi&#39;, &#39;akademik&#39;, &#39;sekolah&#39;, &#39;metode&#39;, &#39;kembang&#39;, &#39;sistem&#39;, &#39;tulis&#39;, &#39;tugas&#39;, &#39;agile&#39;, &#39;model&#39;, &#39;driven&#39;, &#39;uml&#39;, &#39;model&#39;, &#39;terap&#39;, &#39;prinsip&#39;, &#39;agile&#39;, &#39;model&#39;, &#39;driven&#39;, &#39;kembang&#39;, &#39;sistem&#39;, &#39;model&#39;, &#39;uml&#39;, &#39;proses&#39;, &#39;bangun&#39;, &#39;aplikasi&#39;, &#39;model&#39;, &#39;driven&#39;, &#39;design&#39;, &#39;framework&#39;, &#39;django&#39;, &#39;hasil&#39;, &#39;komponen&#39;, &#39;arsitektur&#39;, &#39;basis&#39;, &#39;data&#39;, &#39;sesuai&#39;, &#39;ancang&#39;, &#39;kembang&#39;, &#39;aplikasi&#39;, &#39;hasil&#39;, &#39;teliti&#39;, &#39;sistem&#39;, &#39;informasi&#39;, &#39;akademik&#39;, &#39;layak&#39;, &#39;pakai&#39;, &#39;mudah&#39;, &#39;kembang&#39;, &#39;dasar&#39;, &#39;hasil&#39;, &#39;uji&#39;, &#39;functionality&#39;, &#39;usability&#39;, &#39;portability&#39;, &#39;reliability&#39;, &#39;maintainability&#39;]
 [&#39;madrasah&#39;, &#39;aliyah&#39;, &#39;negeri&#39;, &#39;man&#39;, &#39;sampang&#39;, &#39;salah&#39;, &#39;sekolah&#39;, &#39;kabupaten&#39;, &#39;sampang&#39;, &#39;milik&#39;, &#39;aktivitas&#39;, &#39;extra&#39;, &#39;kurikuler&#39;, &#39;fasilitas&#39;, &#39;lengkap&#39;, &#39;dukung&#39;, &#39;proses&#39;, &#39;ajar&#39;, &#39;ajar&#39;, &#39;sekolah&#39;, &#39;man&#39;, &#39;sampang&#39;, &#39;olah&#39;, &#39;data&#39;, &#39;akademik&#39;, &#39;adminstrasi&#39;, &#39;sistem&#39;, &#39;manual&#39;, &#39;efisien&#39;, &#39;efektif&#39;, &#39;sisi&#39;, &#39;man&#39;, &#39;sampang&#39;, &#39;sistem&#39;, &#39;mudah&#39;, &#39;monitoring&#39;, &#39;akademik&#39;, &#39;administrasi&#39;, &#39;siswa&#39;, &#39;sarana&#39;, &#39;informasi&#39;, &#39;wali&#39;, &#39;murid&#39;, &#39;susun&#39;, &#39;tugas&#39;, &#39;bangun&#39;, &#39;sistem&#39;, &#39;monitoring&#39;, &#39;akademik&#39;, &#39;administrasi&#39;, &#39;siswa&#39;, &#39;siswi&#39;, &#39;fasilitas&#39;, &#39;sms&#39;, &#39;gateway&#39;, &#39;media&#39;, &#39;monitoring&#39;, &#39;aktivitas&#39;, &#39;prestasi&#39;, &#39;akademik&#39;, &#39;bahasa&#39;, &#39;pemerograman&#39;, &#39;php&#39;, &#39;html&#39;, &#39;c&#39;, &#39;sistem&#39;, &#39;rancang&#39;, &#39;sistem&#39;, &#39;akomodasi&#39;, &#39;butuh&#39;, &#39;mudah&#39;, &#39;cepat&#39;, &#39;kerja&#39;, &#39;guru&#39;, &#39;staf&#39;, &#39;tugas&#39;, &#39;kelola&#39;, &#39;data&#39;, &#39;nilai&#39;, &#39;siswa&#39;, &#39;uji&#39;, &#39;obyektifitas&#39;, &#39;responde&#39;, &#39;hasil&#39;, &#39;responden&#39;, &#39;tuju&#39;, &#39;terehadap&#39;, &#39;sistem&#39;, &#39;monitoring&#39;, &#39;akademik&#39;, &#39;administrasi&#39;, &#39;bangun&#39;, &#39;sistem&#39;, &#39;informasi&#39;, &#39;php&#39;, &#39;mysql&#39;, &#39;sms&#39;, &#39;gateway&#39;, &#39;man&#39;, &#39;sampang&#39;]
@@ -2113,27 +2129,8 @@ Successfully installed Sastrawi-1.0.1
 [&#39;topik&#39;, &#39;deteksi&#39;, &#39;objek&#39;, &#39;tarik&#39;, &#39;perhati&#39;, &#39;kembang&#39;, &#39;teknologi&#39;, &#39;bidang&#39;, &#39;computer&#39;, &#39;vision&#39;, &#39;deteksi&#39;, &#39;objek&#39;, &#39;milik&#39;, &#39;peran&#39;, &#39;hidup&#39;, &#39;hari&#39;, &#39;sistem&#39;, &#39;aman&#39;, &#39;area&#39;, &#39;bantu&#39;, &#39;polisi&#39;, &#39;cari&#39;, &#39;sangka&#39;, &#39;jahat&#39;, &#39;identifikasi&#39;, &#39;ramai&#39;, &#39;area&#39;, &#39;salah&#39;, &#39;contoh&#39;, &#39;metode&#39;, &#39;one&#39;, &#39;stage&#39;, &#39;detector&#39;, &#39;algoritma&#39;, &#39;you&#39;, &#39;only&#39;, &#39;look&#39;, &#39;once&#39;, &#39;versi&#39;, &#39;yolo&#39;, &#39;v&#39;, &#39;yolo&#39;, &#39;v&#39;, &#39;gabung&#39;, &#39;proses&#39;, &#39;beda&#39;, &#39;sama&#39;, &#39;framework&#39;, &#39;kurang&#39;, &#39;komputasi&#39;, &#39;tahap&#39;, &#39;yolo&#39;, &#39;v&#39;, &#39;teliti&#39;, &#39;ukur&#39;, &#39;anchor&#39;, &#39;box&#39;, &#39;grid&#39;, &#39;bentuk&#39;, &#39;data&#39;, &#39;target&#39;, &#39;arsitektur&#39;, &#39;yolo&#39;, &#39;v&#39;, &#39;proses&#39;, &#39;latih&#39;, &#39;uji&#39;, &#39;hasil&#39;, &#39;uji&#39;, &#39;menghasikan&#39;, &#39;simpul&#39;, &#39;pretrained&#39;, &#39;model&#39;, &#39;epoch&#39;, &#39;latih&#39;, &#39;pengaruh&#39;, &#39;akurasi&#39;, &#39;hasil&#39;, &#39;epoch&#39;, &#39;latih&#39;, &#39;baik&#39;, &#39;deteksi&#39;, &#39;manusia&#39;, &#39;citra&#39;, &#39;epoch&#39;, &#39;pretrained&#39;, &#39;model&#39;, &#39;hasil&#39;, &#39;f&#39;, &#39;score&#39;]
 </pre></div>
 </div>
-</div>
-</div>
-</div>
-<div class="section" id="melakukan-penggabungan-kata-dari-hasil-tokenisasi">
-<h3>Melakukan penggabungan kata dari hasil tokenisasi<a class="headerlink" href="#melakukan-penggabungan-kata-dari-hasil-tokenisasi" title="Permalink to this heading">#</a></h3>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gabung</span><span class="o">=</span><span class="p">[]</span>
-<span class="c1">#Membuat perulangan untuk menggabungkan kata</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">words</span><span class="p">)):</span>
-  <span class="n">joinkata</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">words</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
-  <span class="n">gabung</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">joinkata</span><span class="p">)</span>
-
-<span class="n">result</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">gabung</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Join Kata&#39;</span><span class="p">])</span>
-<span class="n">result</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
 <div class="output text_html">
-  <div id="df-15f6df7e-3b0c-4f55-8494-9c43c501838e">
+  <div id="df-08115987-1fc3-4863-85ba-534d1998872f">
     <div class="colab-df-container">
       <div>
 <style scoped>
@@ -2205,7 +2202,7 @@ Successfully installed Sastrawi-1.0.1
 </table>
 <p>805 rows × 1 columns</p>
 </div>
-      <button class="colab-df-convert" onclick="convertToInteractive('df-15f6df7e-3b0c-4f55-8494-9c43c501838e')"
+      <button class="colab-df-convert" onclick="convertToInteractive('df-08115987-1fc3-4863-85ba-534d1998872f')"
               title="Convert this dataframe to an interactive table."
               style="display:none;">
         
@@ -2256,12 +2253,12 @@ Successfully installed Sastrawi-1.0.1
 
       <script>
         const buttonEl =
-          document.querySelector('#df-15f6df7e-3b0c-4f55-8494-9c43c501838e button.colab-df-convert');
+          document.querySelector('#df-08115987-1fc3-4863-85ba-534d1998872f button.colab-df-convert');
         buttonEl.style.display =
           google.colab.kernel.accessAllowed ? 'block' : 'none';
 
         async function convertToInteractive(key) {
-          const element = document.querySelector('#df-15f6df7e-3b0c-4f55-8494-9c43c501838e');
+          const element = document.querySelector('#df-08115987-1fc3-4863-85ba-534d1998872f');
           const dataTable =
             await google.colab.kernel.invokeFunction('convertToInteractive',
                                                      [key], {});
@@ -2310,7 +2307,7 @@ Successfully installed Sastrawi-1.0.1
 </pre></div>
 </div>
 <div class="output text_html">
-  <div id="df-724821f4-f055-4697-ae71-c3c1a8935d33">
+  <div id="df-e9e680af-db9d-4f12-9231-c553a5286919">
     <div class="colab-df-container">
       <div>
 <style scoped>
@@ -2622,7 +2619,7 @@ Successfully installed Sastrawi-1.0.1
 </table>
 <p>805 rows × 5921 columns</p>
 </div>
-      <button class="colab-df-convert" onclick="convertToInteractive('df-724821f4-f055-4697-ae71-c3c1a8935d33')"
+      <button class="colab-df-convert" onclick="convertToInteractive('df-e9e680af-db9d-4f12-9231-c553a5286919')"
               title="Convert this dataframe to an interactive table."
               style="display:none;">
         
@@ -2673,12 +2670,12 @@ Successfully installed Sastrawi-1.0.1
 
       <script>
         const buttonEl =
-          document.querySelector('#df-724821f4-f055-4697-ae71-c3c1a8935d33 button.colab-df-convert');
+          document.querySelector('#df-e9e680af-db9d-4f12-9231-c553a5286919 button.colab-df-convert');
         buttonEl.style.display =
           google.colab.kernel.accessAllowed ? 'block' : 'none';
 
         async function convertToInteractive(key) {
-          const element = document.querySelector('#df-724821f4-f055-4697-ae71-c3c1a8935d33');
+          const element = document.querySelector('#df-e9e680af-db9d-4f12-9231-c553a5286919');
           const dataTable =
             await google.colab.kernel.invokeFunction('convertToInteractive',
                                                      [key], {});
@@ -2716,7 +2713,7 @@ Successfully installed Sastrawi-1.0.1
 </pre></div>
 </div>
 <div class="output text_html">
-  <div id="df-15b53445-b9ca-455d-a14f-bfa1c1f75134">
+  <div id="df-f9f1d546-630b-4fd5-b3fd-0d953b893da0">
     <div class="colab-df-container">
       <div>
 <style scoped>
@@ -3028,7 +3025,7 @@ Successfully installed Sastrawi-1.0.1
 </table>
 <p>805 rows × 5921 columns</p>
 </div>
-      <button class="colab-df-convert" onclick="convertToInteractive('df-15b53445-b9ca-455d-a14f-bfa1c1f75134')"
+      <button class="colab-df-convert" onclick="convertToInteractive('df-f9f1d546-630b-4fd5-b3fd-0d953b893da0')"
               title="Convert this dataframe to an interactive table."
               style="display:none;">
         
@@ -3079,12 +3076,12 @@ Successfully installed Sastrawi-1.0.1
 
       <script>
         const buttonEl =
-          document.querySelector('#df-15b53445-b9ca-455d-a14f-bfa1c1f75134 button.colab-df-convert');
+          document.querySelector('#df-f9f1d546-630b-4fd5-b3fd-0d953b893da0 button.colab-df-convert');
         buttonEl.style.display =
           google.colab.kernel.accessAllowed ? 'block' : 'none';
 
         async function convertToInteractive(key) {
-          const element = document.querySelector('#df-15b53445-b9ca-455d-a14f-bfa1c1f75134');
+          const element = document.querySelector('#df-f9f1d546-630b-4fd5-b3fd-0d953b893da0');
           const dataTable =
             await google.colab.kernel.invokeFunction('convertToInteractive',
                                                      [key], {});
@@ -3120,7 +3117,7 @@ Successfully installed Sastrawi-1.0.1
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-  <div id="df-ab9a4c14-39ab-42ac-97a4-e2a402897e62">
+  <div id="df-af3e0555-fa11-4d7b-b85f-92604f98aa6c">
     <div class="colab-df-container">
       <div>
 <style scoped>
@@ -3167,122 +3164,122 @@ Successfully installed Sastrawi-1.0.1
     <tr>
       <th>0</th>
       <td>-0.022768</td>
-      <td>-0.112574</td>
-      <td>-0.030654</td>
-      <td>-0.054564</td>
-      <td>-0.051471</td>
-      <td>0.036982</td>
-      <td>-0.081372</td>
-      <td>0.058073</td>
-      <td>0.104437</td>
-      <td>0.172573</td>
+      <td>-0.112575</td>
+      <td>-0.030652</td>
+      <td>-0.054543</td>
+      <td>-0.051463</td>
+      <td>0.037058</td>
+      <td>-0.081258</td>
+      <td>0.057669</td>
+      <td>0.104450</td>
+      <td>0.172355</td>
       <td>...</td>
-      <td>-0.093162</td>
-      <td>-0.021453</td>
-      <td>-0.017690</td>
-      <td>-0.065889</td>
-      <td>0.039105</td>
-      <td>0.036184</td>
-      <td>-0.022918</td>
-      <td>-0.070981</td>
-      <td>0.060611</td>
-      <td>0.002189</td>
+      <td>-0.095318</td>
+      <td>-0.019134</td>
+      <td>-0.030440</td>
+      <td>-0.051495</td>
+      <td>0.042392</td>
+      <td>0.033976</td>
+      <td>0.012655</td>
+      <td>0.027914</td>
+      <td>0.102600</td>
+      <td>-0.021662</td>
     </tr>
     <tr>
       <th>1</th>
       <td>-0.025170</td>
       <td>-0.031452</td>
-      <td>-0.012314</td>
-      <td>-0.094867</td>
-      <td>-0.004205</td>
-      <td>0.045076</td>
-      <td>-0.054997</td>
-      <td>0.046152</td>
-      <td>-0.020915</td>
-      <td>0.003691</td>
+      <td>-0.012307</td>
+      <td>-0.094871</td>
+      <td>-0.004178</td>
+      <td>0.045241</td>
+      <td>-0.054849</td>
+      <td>0.046524</td>
+      <td>-0.020599</td>
+      <td>0.004181</td>
       <td>...</td>
-      <td>-0.139685</td>
-      <td>-0.103130</td>
-      <td>-0.008556</td>
-      <td>-0.036545</td>
-      <td>-0.024011</td>
-      <td>-0.040570</td>
-      <td>-0.130131</td>
-      <td>0.076929</td>
-      <td>-0.274025</td>
-      <td>0.050214</td>
+      <td>-0.134972</td>
+      <td>-0.096151</td>
+      <td>-0.002227</td>
+      <td>-0.037363</td>
+      <td>-0.024276</td>
+      <td>-0.059880</td>
+      <td>0.109405</td>
+      <td>-0.237234</td>
+      <td>-0.168367</td>
+      <td>-0.124740</td>
     </tr>
     <tr>
       <th>2</th>
       <td>-0.032024</td>
-      <td>-0.024367</td>
-      <td>-0.046127</td>
-      <td>-0.112687</td>
-      <td>-0.064745</td>
-      <td>0.062362</td>
-      <td>-0.048954</td>
-      <td>-0.088550</td>
-      <td>0.234863</td>
-      <td>-0.038004</td>
+      <td>-0.024364</td>
+      <td>-0.046125</td>
+      <td>-0.112698</td>
+      <td>-0.064731</td>
+      <td>0.062784</td>
+      <td>-0.049475</td>
+      <td>-0.087290</td>
+      <td>0.236085</td>
+      <td>-0.035750</td>
       <td>...</td>
-      <td>-0.012692</td>
-      <td>0.014140</td>
-      <td>0.051492</td>
-      <td>-0.046850</td>
-      <td>-0.076662</td>
-      <td>-0.100586</td>
-      <td>-0.010963</td>
-      <td>-0.078910</td>
-      <td>-0.092572</td>
-      <td>0.102399</td>
+      <td>-0.004181</td>
+      <td>0.030709</td>
+      <td>0.047358</td>
+      <td>-0.083327</td>
+      <td>-0.067959</td>
+      <td>-0.107526</td>
+      <td>0.100175</td>
+      <td>-0.109679</td>
+      <td>0.024874</td>
+      <td>0.007790</td>
     </tr>
     <tr>
       <th>3</th>
       <td>-0.028460</td>
-      <td>-0.033514</td>
-      <td>-0.030926</td>
-      <td>-0.029979</td>
-      <td>0.010685</td>
-      <td>0.021192</td>
-      <td>-0.044115</td>
-      <td>-0.058406</td>
-      <td>-0.013334</td>
-      <td>-0.028910</td>
+      <td>-0.033512</td>
+      <td>-0.030927</td>
+      <td>-0.030000</td>
+      <td>0.010719</td>
+      <td>0.021128</td>
+      <td>-0.044135</td>
+      <td>-0.057765</td>
+      <td>-0.013652</td>
+      <td>-0.028549</td>
       <td>...</td>
-      <td>0.142867</td>
-      <td>0.319941</td>
-      <td>0.055284</td>
-      <td>0.299349</td>
-      <td>0.385272</td>
-      <td>-0.005395</td>
-      <td>0.138069</td>
-      <td>-0.022410</td>
-      <td>-0.172335</td>
-      <td>-0.075239</td>
+      <td>0.144505</td>
+      <td>0.295766</td>
+      <td>0.122386</td>
+      <td>0.394699</td>
+      <td>0.309878</td>
+      <td>0.023304</td>
+      <td>-0.059391</td>
+      <td>-0.097744</td>
+      <td>0.004151</td>
+      <td>-0.062028</td>
     </tr>
     <tr>
       <th>4</th>
       <td>-0.060560</td>
-      <td>0.058320</td>
-      <td>0.028166</td>
-      <td>-0.069153</td>
-      <td>-0.005781</td>
-      <td>0.126266</td>
-      <td>-0.103489</td>
-      <td>0.074392</td>
-      <td>-0.054215</td>
-      <td>-0.139867</td>
+      <td>0.058319</td>
+      <td>0.028158</td>
+      <td>-0.069146</td>
+      <td>-0.005847</td>
+      <td>0.125870</td>
+      <td>-0.103404</td>
+      <td>0.073660</td>
+      <td>-0.055397</td>
+      <td>-0.141302</td>
       <td>...</td>
-      <td>-0.159667</td>
-      <td>0.095862</td>
-      <td>-0.190161</td>
-      <td>-0.018970</td>
-      <td>-0.048456</td>
-      <td>0.022190</td>
-      <td>0.148342</td>
-      <td>-0.091230</td>
-      <td>0.131646</td>
-      <td>-0.026703</td>
+      <td>-0.163529</td>
+      <td>0.073982</td>
+      <td>-0.189753</td>
+      <td>0.040034</td>
+      <td>-0.040730</td>
+      <td>-0.001723</td>
+      <td>-0.169382</td>
+      <td>0.157970</td>
+      <td>0.132844</td>
+      <td>-0.019819</td>
     </tr>
     <tr>
       <th>...</th>
@@ -3310,129 +3307,129 @@ Successfully installed Sastrawi-1.0.1
     </tr>
     <tr>
       <th>800</th>
-      <td>0.003023</td>
+      <td>0.003022</td>
       <td>-0.029164</td>
-      <td>0.005975</td>
+      <td>0.005974</td>
       <td>-0.024672</td>
-      <td>-0.029774</td>
-      <td>0.021762</td>
-      <td>0.061432</td>
-      <td>-0.033894</td>
-      <td>-0.086555</td>
-      <td>-0.006536</td>
+      <td>-0.029795</td>
+      <td>0.021591</td>
+      <td>0.061576</td>
+      <td>-0.034389</td>
+      <td>-0.086982</td>
+      <td>-0.006749</td>
       <td>...</td>
-      <td>0.002824</td>
-      <td>-0.049737</td>
-      <td>0.051511</td>
-      <td>-0.037551</td>
-      <td>-0.004197</td>
-      <td>0.044794</td>
-      <td>-0.027087</td>
-      <td>0.025981</td>
-      <td>0.008212</td>
-      <td>0.024483</td>
+      <td>0.004041</td>
+      <td>-0.048032</td>
+      <td>0.033555</td>
+      <td>-0.053552</td>
+      <td>0.015552</td>
+      <td>0.043631</td>
+      <td>-0.007202</td>
+      <td>0.019712</td>
+      <td>-0.008288</td>
+      <td>0.009472</td>
     </tr>
     <tr>
       <th>801</th>
       <td>0.007223</td>
-      <td>-0.025940</td>
-      <td>-0.032671</td>
-      <td>-0.054437</td>
-      <td>-0.066260</td>
-      <td>0.031288</td>
-      <td>-0.008464</td>
-      <td>-0.182025</td>
-      <td>0.220473</td>
-      <td>-0.118773</td>
+      <td>-0.025941</td>
+      <td>-0.032675</td>
+      <td>-0.054425</td>
+      <td>-0.066319</td>
+      <td>0.031020</td>
+      <td>-0.008286</td>
+      <td>-0.182829</td>
+      <td>0.219851</td>
+      <td>-0.120132</td>
       <td>...</td>
-      <td>0.046662</td>
-      <td>-0.030866</td>
-      <td>-0.046863</td>
-      <td>0.012720</td>
-      <td>-0.016743</td>
-      <td>-0.042851</td>
-      <td>0.034274</td>
-      <td>0.013251</td>
-      <td>-0.001600</td>
-      <td>-0.051339</td>
+      <td>0.042660</td>
+      <td>-0.038792</td>
+      <td>-0.041102</td>
+      <td>0.038813</td>
+      <td>-0.015761</td>
+      <td>-0.044195</td>
+      <td>-0.050160</td>
+      <td>0.030811</td>
+      <td>0.019464</td>
+      <td>-0.022750</td>
     </tr>
     <tr>
       <th>802</th>
       <td>0.241865</td>
-      <td>0.044355</td>
-      <td>-0.038649</td>
-      <td>0.067081</td>
-      <td>-0.091759</td>
-      <td>0.025052</td>
-      <td>0.076394</td>
-      <td>-0.061107</td>
-      <td>-0.067752</td>
-      <td>0.025704</td>
+      <td>0.044356</td>
+      <td>-0.038651</td>
+      <td>0.067076</td>
+      <td>-0.091755</td>
+      <td>0.025104</td>
+      <td>0.076389</td>
+      <td>-0.060869</td>
+      <td>-0.067673</td>
+      <td>0.026588</td>
       <td>...</td>
-      <td>0.008241</td>
-      <td>-0.145324</td>
-      <td>0.019331</td>
-      <td>0.043565</td>
-      <td>0.061974</td>
-      <td>0.038826</td>
-      <td>0.052895</td>
-      <td>-0.018253</td>
-      <td>0.071605</td>
-      <td>-0.070837</td>
+      <td>0.010199</td>
+      <td>-0.138108</td>
+      <td>0.018254</td>
+      <td>0.035425</td>
+      <td>0.042173</td>
+      <td>0.065552</td>
+      <td>0.017561</td>
+      <td>0.099539</td>
+      <td>0.051704</td>
+      <td>-0.066282</td>
     </tr>
     <tr>
       <th>803</th>
       <td>0.102252</td>
-      <td>0.010425</td>
-      <td>-0.008794</td>
-      <td>0.000457</td>
-      <td>-0.039457</td>
-      <td>0.039235</td>
-      <td>0.106848</td>
-      <td>-0.012263</td>
-      <td>-0.076658</td>
-      <td>-0.043272</td>
+      <td>0.010427</td>
+      <td>-0.008797</td>
+      <td>0.000452</td>
+      <td>-0.039484</td>
+      <td>0.039349</td>
+      <td>0.106624</td>
+      <td>-0.012159</td>
+      <td>-0.076398</td>
+      <td>-0.041917</td>
       <td>...</td>
-      <td>-0.007812</td>
-      <td>-0.256101</td>
-      <td>0.063880</td>
-      <td>0.088024</td>
-      <td>0.114410</td>
-      <td>0.014056</td>
-      <td>-0.028393</td>
-      <td>-0.100861</td>
-      <td>0.037561</td>
-      <td>-0.073215</td>
+      <td>-0.009655</td>
+      <td>-0.235215</td>
+      <td>0.066480</td>
+      <td>0.046267</td>
+      <td>0.085903</td>
+      <td>0.074632</td>
+      <td>0.144364</td>
+      <td>0.066888</td>
+      <td>0.109123</td>
+      <td>-0.055455</td>
     </tr>
     <tr>
       <th>804</th>
       <td>0.076253</td>
       <td>0.011251</td>
-      <td>0.031525</td>
-      <td>-0.003916</td>
-      <td>-0.035834</td>
-      <td>0.060957</td>
-      <td>-0.009516</td>
-      <td>-0.015868</td>
-      <td>-0.013832</td>
-      <td>-0.019992</td>
+      <td>0.031528</td>
+      <td>-0.003929</td>
+      <td>-0.035807</td>
+      <td>0.061079</td>
+      <td>-0.009643</td>
+      <td>-0.015475</td>
+      <td>-0.014024</td>
+      <td>-0.019892</td>
       <td>...</td>
-      <td>0.014902</td>
-      <td>-0.054365</td>
-      <td>0.037616</td>
-      <td>0.018017</td>
-      <td>0.009746</td>
-      <td>0.117617</td>
-      <td>-0.064176</td>
-      <td>-0.003751</td>
-      <td>0.045262</td>
-      <td>-0.029410</td>
+      <td>0.008158</td>
+      <td>-0.043282</td>
+      <td>0.038511</td>
+      <td>-0.021828</td>
+      <td>0.001565</td>
+      <td>0.123402</td>
+      <td>0.052187</td>
+      <td>0.037640</td>
+      <td>0.021220</td>
+      <td>-0.008562</td>
     </tr>
   </tbody>
 </table>
 <p>805 rows × 30 columns</p>
 </div>
-      <button class="colab-df-convert" onclick="convertToInteractive('df-ab9a4c14-39ab-42ac-97a4-e2a402897e62')"
+      <button class="colab-df-convert" onclick="convertToInteractive('df-af3e0555-fa11-4d7b-b85f-92604f98aa6c')"
               title="Convert this dataframe to an interactive table."
               style="display:none;">
         
@@ -3483,12 +3480,12 @@ Successfully installed Sastrawi-1.0.1
 
       <script>
         const buttonEl =
-          document.querySelector('#df-ab9a4c14-39ab-42ac-97a4-e2a402897e62 button.colab-df-convert');
+          document.querySelector('#df-af3e0555-fa11-4d7b-b85f-92604f98aa6c button.colab-df-convert');
         buttonEl.style.display =
           google.colab.kernel.accessAllowed ? 'block' : 'none';
 
         async function convertToInteractive(key) {
-          const element = document.querySelector('#df-ab9a4c14-39ab-42ac-97a4-e2a402897e62');
+          const element = document.querySelector('#df-af3e0555-fa11-4d7b-b85f-92604f98aa6c');
           const dataTable =
             await google.colab.kernel.invokeFunction('convertToInteractive',
                                                      [key], {});
@@ -3537,7 +3534,7 @@ Successfully installed Sastrawi-1.0.1
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html"><style>#sk-container-id-3 {color: black;background-color: white;}#sk-container-id-3 pre{padding: 0;}#sk-container-id-3 div.sk-toggleable {background-color: white;}#sk-container-id-3 label.sk-toggleable__label {cursor: pointer;display: block;width: 100%;margin-bottom: 0;padding: 0.3em;box-sizing: border-box;text-align: center;}#sk-container-id-3 label.sk-toggleable__label-arrow:before {content: "▸";float: left;margin-right: 0.25em;color: #696969;}#sk-container-id-3 label.sk-toggleable__label-arrow:hover:before {color: black;}#sk-container-id-3 div.sk-estimator:hover label.sk-toggleable__label-arrow:before {color: black;}#sk-container-id-3 div.sk-toggleable__content {max-height: 0;max-width: 0;overflow: hidden;text-align: left;background-color: #f0f8ff;}#sk-container-id-3 div.sk-toggleable__content pre {margin: 0.2em;color: black;border-radius: 0.25em;background-color: #f0f8ff;}#sk-container-id-3 input.sk-toggleable__control:checked~div.sk-toggleable__content {max-height: 200px;max-width: 100%;overflow: auto;}#sk-container-id-3 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {content: "▾";}#sk-container-id-3 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-3 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-3 input.sk-hidden--visually {border: 0;clip: rect(1px 1px 1px 1px);clip: rect(1px, 1px, 1px, 1px);height: 1px;margin: -1px;overflow: hidden;padding: 0;position: absolute;width: 1px;}#sk-container-id-3 div.sk-estimator {font-family: monospace;background-color: #f0f8ff;border: 1px dotted black;border-radius: 0.25em;box-sizing: border-box;margin-bottom: 0.5em;}#sk-container-id-3 div.sk-estimator:hover {background-color: #d4ebff;}#sk-container-id-3 div.sk-parallel-item::after {content: "";width: 100%;border-bottom: 1px solid gray;flex-grow: 1;}#sk-container-id-3 div.sk-label:hover label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-3 div.sk-serial::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: 0;}#sk-container-id-3 div.sk-serial {display: flex;flex-direction: column;align-items: center;background-color: white;padding-right: 0.2em;padding-left: 0.2em;position: relative;}#sk-container-id-3 div.sk-item {position: relative;z-index: 1;}#sk-container-id-3 div.sk-parallel {display: flex;align-items: stretch;justify-content: center;background-color: white;position: relative;}#sk-container-id-3 div.sk-item::before, #sk-container-id-3 div.sk-parallel-item::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: -1;}#sk-container-id-3 div.sk-parallel-item {display: flex;flex-direction: column;z-index: 1;position: relative;background-color: white;}#sk-container-id-3 div.sk-parallel-item:first-child::after {align-self: flex-end;width: 50%;}#sk-container-id-3 div.sk-parallel-item:last-child::after {align-self: flex-start;width: 50%;}#sk-container-id-3 div.sk-parallel-item:only-child::after {width: 0;}#sk-container-id-3 div.sk-dashed-wrapped {border: 1px dashed gray;margin: 0 0.4em 0.5em 0.4em;box-sizing: border-box;padding-bottom: 0.4em;background-color: white;}#sk-container-id-3 div.sk-label label {font-family: monospace;font-weight: bold;display: inline-block;line-height: 1.2em;}#sk-container-id-3 div.sk-label-container {text-align: center;}#sk-container-id-3 div.sk-container {/* jupyter's `normalize.less` sets `[hidden] { display: none; }` but bootstrap.min.css set `[hidden] { display: none !important; }` so we also need the `!important` here to be able to override the default hidden behavior on the sphinx rendered scikit-learn.org. See: https://github.com/scikit-learn/scikit-learn/issues/21755 */display: inline-block !important;position: relative;}#sk-container-id-3 div.sk-text-repr-fallback {display: none;}</style><div id="sk-container-id-3" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>KNeighborsClassifier()</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-3" type="checkbox" checked><label for="sk-estimator-id-3" class="sk-toggleable__label sk-toggleable__label-arrow">KNeighborsClassifier</label><div class="sk-toggleable__content"><pre>KNeighborsClassifier()</pre></div></div></div></div></div></div></div>
+<div class="output text_html"><style>#sk-container-id-1 {color: black;background-color: white;}#sk-container-id-1 pre{padding: 0;}#sk-container-id-1 div.sk-toggleable {background-color: white;}#sk-container-id-1 label.sk-toggleable__label {cursor: pointer;display: block;width: 100%;margin-bottom: 0;padding: 0.3em;box-sizing: border-box;text-align: center;}#sk-container-id-1 label.sk-toggleable__label-arrow:before {content: "▸";float: left;margin-right: 0.25em;color: #696969;}#sk-container-id-1 label.sk-toggleable__label-arrow:hover:before {color: black;}#sk-container-id-1 div.sk-estimator:hover label.sk-toggleable__label-arrow:before {color: black;}#sk-container-id-1 div.sk-toggleable__content {max-height: 0;max-width: 0;overflow: hidden;text-align: left;background-color: #f0f8ff;}#sk-container-id-1 div.sk-toggleable__content pre {margin: 0.2em;color: black;border-radius: 0.25em;background-color: #f0f8ff;}#sk-container-id-1 input.sk-toggleable__control:checked~div.sk-toggleable__content {max-height: 200px;max-width: 100%;overflow: auto;}#sk-container-id-1 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {content: "▾";}#sk-container-id-1 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 input.sk-hidden--visually {border: 0;clip: rect(1px 1px 1px 1px);clip: rect(1px, 1px, 1px, 1px);height: 1px;margin: -1px;overflow: hidden;padding: 0;position: absolute;width: 1px;}#sk-container-id-1 div.sk-estimator {font-family: monospace;background-color: #f0f8ff;border: 1px dotted black;border-radius: 0.25em;box-sizing: border-box;margin-bottom: 0.5em;}#sk-container-id-1 div.sk-estimator:hover {background-color: #d4ebff;}#sk-container-id-1 div.sk-parallel-item::after {content: "";width: 100%;border-bottom: 1px solid gray;flex-grow: 1;}#sk-container-id-1 div.sk-label:hover label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 div.sk-serial::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: 0;}#sk-container-id-1 div.sk-serial {display: flex;flex-direction: column;align-items: center;background-color: white;padding-right: 0.2em;padding-left: 0.2em;position: relative;}#sk-container-id-1 div.sk-item {position: relative;z-index: 1;}#sk-container-id-1 div.sk-parallel {display: flex;align-items: stretch;justify-content: center;background-color: white;position: relative;}#sk-container-id-1 div.sk-item::before, #sk-container-id-1 div.sk-parallel-item::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: -1;}#sk-container-id-1 div.sk-parallel-item {display: flex;flex-direction: column;z-index: 1;position: relative;background-color: white;}#sk-container-id-1 div.sk-parallel-item:first-child::after {align-self: flex-end;width: 50%;}#sk-container-id-1 div.sk-parallel-item:last-child::after {align-self: flex-start;width: 50%;}#sk-container-id-1 div.sk-parallel-item:only-child::after {width: 0;}#sk-container-id-1 div.sk-dashed-wrapped {border: 1px dashed gray;margin: 0 0.4em 0.5em 0.4em;box-sizing: border-box;padding-bottom: 0.4em;background-color: white;}#sk-container-id-1 div.sk-label label {font-family: monospace;font-weight: bold;display: inline-block;line-height: 1.2em;}#sk-container-id-1 div.sk-label-container {text-align: center;}#sk-container-id-1 div.sk-container {/* jupyter's `normalize.less` sets `[hidden] { display: none; }` but bootstrap.min.css set `[hidden] { display: none !important; }` so we also need the `!important` here to be able to override the default hidden behavior on the sphinx rendered scikit-learn.org. See: https://github.com/scikit-learn/scikit-learn/issues/21755 */display: inline-block !important;position: relative;}#sk-container-id-1 div.sk-text-repr-fallback {display: none;}</style><div id="sk-container-id-1" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>KNeighborsClassifier()</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-1" type="checkbox" checked><label for="sk-estimator-id-1" class="sk-toggleable__label sk-toggleable__label-arrow">KNeighborsClassifier</label><div class="sk-toggleable__content"><pre>KNeighborsClassifier()</pre></div></div></div></div></div></div></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -3551,31 +3548,32 @@ Successfully installed Sastrawi-1.0.1
        &#39;rpl&#39;, &#39;komputasi&#39;, &#39;rpl&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;,
        &#39;rpl&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;rpl&#39;, &#39;rpl&#39;, &#39;komputasi&#39;,
        &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;rpl&#39;, &#39;rpl&#39;, &#39;rpl&#39;,
-       &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;rpl&#39;, &#39;rpl&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;,
-       &#39;rpl&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;rpl&#39;, &#39;komputasi&#39;,
-       &#39;rpl&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;rpl&#39;, &#39;komputasi&#39;,
-       &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;rpl&#39;, &#39;komputasi&#39;, &#39;rpl&#39;, &#39;komputasi&#39;,
-       &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;,
-       &#39;rpl&#39;, &#39;komputasi&#39;, &#39;rpl&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;,
-       &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;,
-       &#39;komputasi&#39;, &#39;rpl&#39;, &#39;rpl&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;rpl&#39;,
-       &#39;komputasi&#39;, &#39;rpl&#39;, &#39;komputasi&#39;, &#39;rpl&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;,
-       &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;rpl&#39;, &#39;rpl&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;,
-       &#39;rpl&#39;, &#39;rpl&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;rpl&#39;, &#39;rpl&#39;,
-       &#39;komputasi&#39;, &#39;rpl&#39;, &#39;rpl&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;,
-       &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;,
        &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;rpl&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;,
-       &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;,
-       &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;,
-       &#39;rpl&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;rpl&#39;, &#39;komputasi&#39;,
-       &#39;rpl&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;rpl&#39;,
-       &#39;rpl&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;,
-       &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;,
        &#39;komputasi&#39;, &#39;rpl&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;,
+       &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;rpl&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;,
+       &#39;komputasi&#39;, &#39;rpl&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;rpl&#39;,
        &#39;komputasi&#39;, &#39;rpl&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;,
+       &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;rpl&#39;, &#39;komputasi&#39;, &#39;rpl&#39;,
+       &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;,
+       &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;rpl&#39;, &#39;rpl&#39;,
+       &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;rpl&#39;, &#39;komputasi&#39;, &#39;rpl&#39;, &#39;komputasi&#39;,
+       &#39;rpl&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;rpl&#39;, &#39;komputasi&#39;, &#39;rpl&#39;, &#39;rpl&#39;,
+       &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;rpl&#39;, &#39;rpl&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;,
+       &#39;komputasi&#39;, &#39;rpl&#39;, &#39;rpl&#39;, &#39;komputasi&#39;, &#39;rpl&#39;, &#39;rpl&#39;, &#39;komputasi&#39;,
+       &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;rpl&#39;, &#39;komputasi&#39;,
        &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;rpl&#39;,
        &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;,
-       &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;], dtype=object)
+       &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;,
+       &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;rpl&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;,
+       &#39;komputasi&#39;, &#39;rpl&#39;, &#39;komputasi&#39;, &#39;rpl&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;,
+       &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;rpl&#39;, &#39;rpl&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;,
+       &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;,
+       &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;rpl&#39;, &#39;komputasi&#39;,
+       &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;rpl&#39;, &#39;komputasi&#39;,
+       &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;rpl&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;,
+       &#39;komputasi&#39;, &#39;rpl&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;,
+       &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;],
+      dtype=object)
 </pre></div>
 </div>
 </div>
@@ -3587,7 +3585,7 @@ Successfully installed Sastrawi-1.0.1
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.8385093167701864
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.84472049689441
 </pre></div>
 </div>
 </div>
@@ -3601,11 +3599,11 @@ Successfully installed Sastrawi-1.0.1
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>              precision    recall  f1-score   support
 
-   komputasi       0.87      0.90      0.89       113
-         rpl       0.75      0.69      0.72        48
+   komputasi       0.88      0.90      0.89       113
+         rpl       0.76      0.71      0.73        48
 
     accuracy                           0.84       161
-   macro avg       0.81      0.80      0.80       161
+   macro avg       0.82      0.81      0.81       161
 weighted avg       0.84      0.84      0.84       161
 </pre></div>
 </div>
@@ -3627,7 +3625,7 @@ weighted avg       0.84      0.84      0.84       161
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html"><style>#sk-container-id-4 {color: black;background-color: white;}#sk-container-id-4 pre{padding: 0;}#sk-container-id-4 div.sk-toggleable {background-color: white;}#sk-container-id-4 label.sk-toggleable__label {cursor: pointer;display: block;width: 100%;margin-bottom: 0;padding: 0.3em;box-sizing: border-box;text-align: center;}#sk-container-id-4 label.sk-toggleable__label-arrow:before {content: "▸";float: left;margin-right: 0.25em;color: #696969;}#sk-container-id-4 label.sk-toggleable__label-arrow:hover:before {color: black;}#sk-container-id-4 div.sk-estimator:hover label.sk-toggleable__label-arrow:before {color: black;}#sk-container-id-4 div.sk-toggleable__content {max-height: 0;max-width: 0;overflow: hidden;text-align: left;background-color: #f0f8ff;}#sk-container-id-4 div.sk-toggleable__content pre {margin: 0.2em;color: black;border-radius: 0.25em;background-color: #f0f8ff;}#sk-container-id-4 input.sk-toggleable__control:checked~div.sk-toggleable__content {max-height: 200px;max-width: 100%;overflow: auto;}#sk-container-id-4 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {content: "▾";}#sk-container-id-4 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-4 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-4 input.sk-hidden--visually {border: 0;clip: rect(1px 1px 1px 1px);clip: rect(1px, 1px, 1px, 1px);height: 1px;margin: -1px;overflow: hidden;padding: 0;position: absolute;width: 1px;}#sk-container-id-4 div.sk-estimator {font-family: monospace;background-color: #f0f8ff;border: 1px dotted black;border-radius: 0.25em;box-sizing: border-box;margin-bottom: 0.5em;}#sk-container-id-4 div.sk-estimator:hover {background-color: #d4ebff;}#sk-container-id-4 div.sk-parallel-item::after {content: "";width: 100%;border-bottom: 1px solid gray;flex-grow: 1;}#sk-container-id-4 div.sk-label:hover label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-4 div.sk-serial::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: 0;}#sk-container-id-4 div.sk-serial {display: flex;flex-direction: column;align-items: center;background-color: white;padding-right: 0.2em;padding-left: 0.2em;position: relative;}#sk-container-id-4 div.sk-item {position: relative;z-index: 1;}#sk-container-id-4 div.sk-parallel {display: flex;align-items: stretch;justify-content: center;background-color: white;position: relative;}#sk-container-id-4 div.sk-item::before, #sk-container-id-4 div.sk-parallel-item::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: -1;}#sk-container-id-4 div.sk-parallel-item {display: flex;flex-direction: column;z-index: 1;position: relative;background-color: white;}#sk-container-id-4 div.sk-parallel-item:first-child::after {align-self: flex-end;width: 50%;}#sk-container-id-4 div.sk-parallel-item:last-child::after {align-self: flex-start;width: 50%;}#sk-container-id-4 div.sk-parallel-item:only-child::after {width: 0;}#sk-container-id-4 div.sk-dashed-wrapped {border: 1px dashed gray;margin: 0 0.4em 0.5em 0.4em;box-sizing: border-box;padding-bottom: 0.4em;background-color: white;}#sk-container-id-4 div.sk-label label {font-family: monospace;font-weight: bold;display: inline-block;line-height: 1.2em;}#sk-container-id-4 div.sk-label-container {text-align: center;}#sk-container-id-4 div.sk-container {/* jupyter's `normalize.less` sets `[hidden] { display: none; }` but bootstrap.min.css set `[hidden] { display: none !important; }` so we also need the `!important` here to be able to override the default hidden behavior on the sphinx rendered scikit-learn.org. See: https://github.com/scikit-learn/scikit-learn/issues/21755 */display: inline-block !important;position: relative;}#sk-container-id-4 div.sk-text-repr-fallback {display: none;}</style><div id="sk-container-id-4" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>GaussianNB()</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-4" type="checkbox" checked><label for="sk-estimator-id-4" class="sk-toggleable__label sk-toggleable__label-arrow">GaussianNB</label><div class="sk-toggleable__content"><pre>GaussianNB()</pre></div></div></div></div></div></div></div>
+<div class="output text_html"><style>#sk-container-id-2 {color: black;background-color: white;}#sk-container-id-2 pre{padding: 0;}#sk-container-id-2 div.sk-toggleable {background-color: white;}#sk-container-id-2 label.sk-toggleable__label {cursor: pointer;display: block;width: 100%;margin-bottom: 0;padding: 0.3em;box-sizing: border-box;text-align: center;}#sk-container-id-2 label.sk-toggleable__label-arrow:before {content: "▸";float: left;margin-right: 0.25em;color: #696969;}#sk-container-id-2 label.sk-toggleable__label-arrow:hover:before {color: black;}#sk-container-id-2 div.sk-estimator:hover label.sk-toggleable__label-arrow:before {color: black;}#sk-container-id-2 div.sk-toggleable__content {max-height: 0;max-width: 0;overflow: hidden;text-align: left;background-color: #f0f8ff;}#sk-container-id-2 div.sk-toggleable__content pre {margin: 0.2em;color: black;border-radius: 0.25em;background-color: #f0f8ff;}#sk-container-id-2 input.sk-toggleable__control:checked~div.sk-toggleable__content {max-height: 200px;max-width: 100%;overflow: auto;}#sk-container-id-2 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {content: "▾";}#sk-container-id-2 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-2 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-2 input.sk-hidden--visually {border: 0;clip: rect(1px 1px 1px 1px);clip: rect(1px, 1px, 1px, 1px);height: 1px;margin: -1px;overflow: hidden;padding: 0;position: absolute;width: 1px;}#sk-container-id-2 div.sk-estimator {font-family: monospace;background-color: #f0f8ff;border: 1px dotted black;border-radius: 0.25em;box-sizing: border-box;margin-bottom: 0.5em;}#sk-container-id-2 div.sk-estimator:hover {background-color: #d4ebff;}#sk-container-id-2 div.sk-parallel-item::after {content: "";width: 100%;border-bottom: 1px solid gray;flex-grow: 1;}#sk-container-id-2 div.sk-label:hover label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-2 div.sk-serial::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: 0;}#sk-container-id-2 div.sk-serial {display: flex;flex-direction: column;align-items: center;background-color: white;padding-right: 0.2em;padding-left: 0.2em;position: relative;}#sk-container-id-2 div.sk-item {position: relative;z-index: 1;}#sk-container-id-2 div.sk-parallel {display: flex;align-items: stretch;justify-content: center;background-color: white;position: relative;}#sk-container-id-2 div.sk-item::before, #sk-container-id-2 div.sk-parallel-item::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: -1;}#sk-container-id-2 div.sk-parallel-item {display: flex;flex-direction: column;z-index: 1;position: relative;background-color: white;}#sk-container-id-2 div.sk-parallel-item:first-child::after {align-self: flex-end;width: 50%;}#sk-container-id-2 div.sk-parallel-item:last-child::after {align-self: flex-start;width: 50%;}#sk-container-id-2 div.sk-parallel-item:only-child::after {width: 0;}#sk-container-id-2 div.sk-dashed-wrapped {border: 1px dashed gray;margin: 0 0.4em 0.5em 0.4em;box-sizing: border-box;padding-bottom: 0.4em;background-color: white;}#sk-container-id-2 div.sk-label label {font-family: monospace;font-weight: bold;display: inline-block;line-height: 1.2em;}#sk-container-id-2 div.sk-label-container {text-align: center;}#sk-container-id-2 div.sk-container {/* jupyter's `normalize.less` sets `[hidden] { display: none; }` but bootstrap.min.css set `[hidden] { display: none !important; }` so we also need the `!important` here to be able to override the default hidden behavior on the sphinx rendered scikit-learn.org. See: https://github.com/scikit-learn/scikit-learn/issues/21755 */display: inline-block !important;position: relative;}#sk-container-id-2 div.sk-text-repr-fallback {display: none;}</style><div id="sk-container-id-2" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>GaussianNB()</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-2" type="checkbox" checked><label for="sk-estimator-id-2" class="sk-toggleable__label sk-toggleable__label-arrow">GaussianNB</label><div class="sk-toggleable__content"><pre>GaussianNB()</pre></div></div></div></div></div></div></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -3637,35 +3635,35 @@ weighted avg       0.84      0.84      0.84       161
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([&#39;komputasi&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;rpl&#39;, &#39;rpl&#39;, &#39;rpl&#39;,
-       &#39;komputasi&#39;, &#39;rpl&#39;, &#39;komputasi&#39;, &#39;rpl&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;,
-       &#39;komputasi&#39;, &#39;rpl&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;,
-       &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;,
-       &#39;komputasi&#39;, &#39;rpl&#39;, &#39;rpl&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;rpl&#39;,
-       &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;rpl&#39;, &#39;komputasi&#39;,
-       &#39;komputasi&#39;, &#39;rpl&#39;, &#39;rpl&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;,
-       &#39;komputasi&#39;, &#39;rpl&#39;, &#39;rpl&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;,
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([&#39;rpl&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;rpl&#39;, &#39;rpl&#39;, &#39;rpl&#39;, &#39;komputasi&#39;,
        &#39;rpl&#39;, &#39;komputasi&#39;, &#39;rpl&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;,
-       &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;,
-       &#39;rpl&#39;, &#39;komputasi&#39;, &#39;rpl&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;,
+       &#39;rpl&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;rpl&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;,
        &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;rpl&#39;, &#39;rpl&#39;,
-       &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;rpl&#39;, &#39;rpl&#39;, &#39;komputasi&#39;,
-       &#39;komputasi&#39;, &#39;rpl&#39;, &#39;komputasi&#39;, &#39;rpl&#39;, &#39;komputasi&#39;, &#39;rpl&#39;, &#39;rpl&#39;,
-       &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;rpl&#39;, &#39;rpl&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;,
-       &#39;komputasi&#39;, &#39;rpl&#39;, &#39;komputasi&#39;, &#39;rpl&#39;, &#39;rpl&#39;, &#39;rpl&#39;, &#39;komputasi&#39;,
-       &#39;komputasi&#39;, &#39;rpl&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;,
-       &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;rpl&#39;, &#39;komputasi&#39;, &#39;rpl&#39;, &#39;komputasi&#39;,
-       &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;rpl&#39;, &#39;rpl&#39;, &#39;rpl&#39;, &#39;komputasi&#39;,
-       &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;rpl&#39;, &#39;komputasi&#39;, &#39;rpl&#39;,
-       &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;rpl&#39;, &#39;komputasi&#39;, &#39;rpl&#39;,
-       &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;rpl&#39;,
-       &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;rpl&#39;,
+       &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;rpl&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;,
+       &#39;komputasi&#39;, &#39;rpl&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;rpl&#39;, &#39;rpl&#39;,
+       &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;rpl&#39;, &#39;rpl&#39;,
+       &#39;rpl&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;rpl&#39;, &#39;komputasi&#39;, &#39;rpl&#39;,
        &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;,
-       &#39;komputasi&#39;, &#39;rpl&#39;, &#39;komputasi&#39;, &#39;rpl&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;,
-       &#39;rpl&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;,
-       &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;rpl&#39;, &#39;rpl&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;,
        &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;rpl&#39;, &#39;komputasi&#39;,
-       &#39;komputasi&#39;], dtype=&#39;&lt;U9&#39;)
+       &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;,
+       &#39;rpl&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;rpl&#39;, &#39;rpl&#39;, &#39;komputasi&#39;,
+       &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;rpl&#39;, &#39;rpl&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;,
+       &#39;rpl&#39;, &#39;komputasi&#39;, &#39;rpl&#39;, &#39;komputasi&#39;, &#39;rpl&#39;, &#39;rpl&#39;, &#39;komputasi&#39;,
+       &#39;komputasi&#39;, &#39;rpl&#39;, &#39;rpl&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;,
+       &#39;rpl&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;rpl&#39;, &#39;rpl&#39;, &#39;komputasi&#39;,
+       &#39;komputasi&#39;, &#39;rpl&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;,
+       &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;rpl&#39;,
+       &#39;komputasi&#39;, &#39;rpl&#39;, &#39;komputasi&#39;, &#39;rpl&#39;, &#39;rpl&#39;, &#39;rpl&#39;, &#39;komputasi&#39;,
+       &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;rpl&#39;, &#39;komputasi&#39;, &#39;rpl&#39;,
+       &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;rpl&#39;, &#39;komputasi&#39;, &#39;rpl&#39;,
+       &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;rpl&#39;,
+       &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;rpl&#39;, &#39;rpl&#39;, &#39;komputasi&#39;,
+       &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;,
+       &#39;rpl&#39;, &#39;komputasi&#39;, &#39;rpl&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;rpl&#39;,
+       &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;,
+       &#39;komputasi&#39;, &#39;rpl&#39;, &#39;rpl&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;,
+       &#39;komputasi&#39;, &#39;komputasi&#39;, &#39;rpl&#39;, &#39;komputasi&#39;, &#39;komputasi&#39;],
+      dtype=&#39;&lt;U9&#39;)
 </pre></div>
 </div>
 </div>
@@ -3677,7 +3675,7 @@ weighted avg       0.84      0.84      0.84       161
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.8260869565217391
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.8322981366459627
 </pre></div>
 </div>
 </div>
@@ -3691,12 +3689,573 @@ weighted avg       0.84      0.84      0.84       161
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>              precision    recall  f1-score   support
 
-   komputasi       0.88      0.87      0.88       113
-         rpl       0.70      0.73      0.71        48
+   komputasi       0.90      0.86      0.88       113
+         rpl       0.70      0.77      0.73        48
 
     accuracy                           0.83       161
-   macro avg       0.79      0.80      0.79       161
-weighted avg       0.83      0.83      0.83       161
+   macro avg       0.80      0.81      0.81       161
+weighted avg       0.84      0.83      0.83       161
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="k-means-clustering">
+<h3>K-MEANS Clustering<a class="headerlink" href="#k-means-clustering" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X</span> <span class="o">=</span> <span class="n">data_df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Unnamed: 0&#39;</span><span class="p">,</span><span class="s1">&#39;Kategori&#39;</span><span class="p">])</span>
+<span class="n">X</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+  <div id="df-b04cf02e-c291-4746-8d89-73e38e01e524">
+    <div class="colab-df-container">
+      <div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Abstrak</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Sistem  informasi  akademik  (SIAKAD) merupaka...</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Berjalannya koneksi jaringan komputer dengan l...</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Web server adalah sebuah perangkat lunak serve...</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Penjadwalan  kuliah  di  Perguruan  Tinggi  me...</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Seiring perkembangan teknologi yang ada diduni...</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>800</th>
+      <td>Investasi saham selama ini memiliki resiko ker...</td>
+    </tr>
+    <tr>
+      <th>801</th>
+      <td>Information Retrieval (IR) merupakan pengambil...</td>
+    </tr>
+    <tr>
+      <th>802</th>
+      <td>Klasifikasi citra merupakan proses pengelompok...</td>
+    </tr>
+    <tr>
+      <th>803</th>
+      <td>Identifikasi atribut pejalan kaki merupakan sa...</td>
+    </tr>
+    <tr>
+      <th>804</th>
+      <td>Topik deteksi objek telah menarik perhatian ya...</td>
+    </tr>
+  </tbody>
+</table>
+<p>805 rows × 1 columns</p>
+</div>
+      <button class="colab-df-convert" onclick="convertToInteractive('df-b04cf02e-c291-4746-8d89-73e38e01e524')"
+              title="Convert this dataframe to an interactive table."
+              style="display:none;">
+        
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px"viewBox="0 0 24 24"
+       width="24px">
+    <path d="M0 0h24v24H0V0z" fill="none"/>
+    <path d="M18.56 5.44l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94zm-11 1L8.5 8.5l.94-2.06 2.06-.94-2.06-.94L8.5 2.5l-.94 2.06-2.06.94zm10 10l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94z"/><path d="M17.41 7.96l-1.37-1.37c-.4-.4-.92-.59-1.43-.59-.52 0-1.04.2-1.43.59L10.3 9.45l-7.72 7.72c-.78.78-.78 2.05 0 2.83L4 21.41c.39.39.9.59 1.41.59.51 0 1.02-.2 1.41-.59l7.78-7.78 2.81-2.81c.8-.78.8-2.07 0-2.86zM5.41 20L4 18.59l7.72-7.72 1.47 1.35L5.41 20z"/>
+  </svg>
+      </button>
+      
+  <style>
+    .colab-df-container {
+      display:flex;
+      flex-wrap:wrap;
+      gap: 12px;
+    }
+
+    .colab-df-convert {
+      background-color: #E8F0FE;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      fill: #1967D2;
+      height: 32px;
+      padding: 0 0 0 0;
+      width: 32px;
+    }
+
+    .colab-df-convert:hover {
+      background-color: #E2EBFA;
+      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+      fill: #174EA6;
+    }
+
+    [theme=dark] .colab-df-convert {
+      background-color: #3B4455;
+      fill: #D2E3FC;
+    }
+
+    [theme=dark] .colab-df-convert:hover {
+      background-color: #434B5C;
+      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+      fill: #FFFFFF;
+    }
+  </style>
+
+      <script>
+        const buttonEl =
+          document.querySelector('#df-b04cf02e-c291-4746-8d89-73e38e01e524 button.colab-df-convert');
+        buttonEl.style.display =
+          google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+        async function convertToInteractive(key) {
+          const element = document.querySelector('#df-b04cf02e-c291-4746-8d89-73e38e01e524');
+          const dataTable =
+            await google.colab.kernel.invokeFunction('convertToInteractive',
+                                                     [key], {});
+          if (!dataTable) return;
+
+          const docLinkHtml = 'Like what you see? Visit the ' +
+            '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
+            + ' to learn more about interactive tables.';
+          element.innerHTML = '';
+          dataTable['output_type'] = 'display_data';
+          await google.colab.output.renderOutput(dataTable, element);
+          const docLink = document.createElement('div');
+          docLink.innerHTML = docLinkHtml;
+          element.appendChild(docLink);
+        }
+      </script>
+    </div>
+  </div>
+  </div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y</span> <span class="o">=</span> <span class="n">data_df</span><span class="p">[</span><span class="s1">&#39;Kategori&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+<span class="n">y</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([&#39;RPL&#39;, &#39;RPL&#39;, &#39;RPL&#39;, &#39;KOMPUTASI&#39;, &#39;RPL&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;,
+       &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;RPL&#39;, &#39;RPL&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;,
+       &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;,
+       &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;,
+       &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;,
+       &#39;KOMPUTASI&#39;, &#39;RPL&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;RPL&#39;,
+       &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;,
+       &#39;RPL&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;RPL&#39;,
+       &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;RPL&#39;, &#39;RPL&#39;, &#39;KOMPUTASI&#39;,
+       &#39;RPL&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;,
+       &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;RPL&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;,
+       &#39;KOMPUTASI&#39;, &#39;RPL&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;,
+       &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;,
+       &#39;KOMPUTASI&#39;, &#39;RPL&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;RPL&#39;,
+       &#39;KOMPUTASI&#39;, &#39;RPL&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;,
+       &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;RPL&#39;,
+       &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;,
+       &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;RPL&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;,
+       &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;RPL&#39;, &#39;RPL&#39;, &#39;KOMPUTASI&#39;,
+       &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;RPL&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;,
+       &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;,
+       &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;,
+       &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;,
+       &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;,
+       &#39;RPL&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;RPL&#39;, &#39;KOMPUTASI&#39;,
+       &#39;RPL&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;,
+       &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;,
+       &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;RPL&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;RPL&#39;,
+       &#39;RPL&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;RPL&#39;, &#39;RPL&#39;, &#39;KOMPUTASI&#39;,
+       &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;RPL&#39;, &#39;KOMPUTASI&#39;, &#39;RPL&#39;,
+       &#39;RPL&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;RPL&#39;,
+       &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;RPL&#39;, &#39;RPL&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;,
+       &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;RPL&#39;,
+       &#39;KOMPUTASI&#39;, &#39;RPL&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;RPL&#39;, &#39;KOMPUTASI&#39;,
+       &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;,
+       &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;RPL&#39;,
+       &#39;KOMPUTASI&#39;, &#39;RPL&#39;, &#39;KOMPUTASI&#39;, &#39;RPL&#39;, &#39;RPL&#39;, &#39;KOMPUTASI&#39;,
+       &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;,
+       &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;RPL&#39;,
+       &#39;KOMPUTASI&#39;, &#39;RPL&#39;, &#39;RPL&#39;, &#39;KOMPUTASI&#39;, &#39;RPL&#39;, &#39;RPL&#39;, &#39;RPL&#39;, &#39;RPL&#39;,
+       &#39;RPL&#39;, &#39;KOMPUTASI&#39;, &#39;RPL&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;RPL&#39;, &#39;RPL&#39;,
+       &#39;RPL&#39;, &#39;KOMPUTASI&#39;, &#39;RPL&#39;, &#39;RPL&#39;, &#39;RPL&#39;, &#39;RPL&#39;, &#39;RPL&#39;, &#39;KOMPUTASI&#39;,
+       &#39;RPL&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;RPL&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;,
+       &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;RPL&#39;, &#39;KOMPUTASI&#39;, &#39;RPL&#39;,
+       &#39;KOMPUTASI&#39;, &#39;RPL&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;RPL&#39;, &#39;RPL&#39;, &#39;RPL&#39;,
+       &#39;KOMPUTASI&#39;, &#39;RPL&#39;, &#39;KOMPUTASI&#39;, &#39;RPL&#39;, &#39;RPL&#39;, &#39;RPL&#39;, &#39;RPL&#39;, &#39;RPL&#39;,
+       &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;RPL&#39;, &#39;RPL&#39;, &#39;KOMPUTASI&#39;,
+       &#39;RPL&#39;, &#39;KOMPUTASI&#39;, &#39;RPL&#39;, &#39;KOMPUTASI&#39;, &#39;RPL&#39;, &#39;KOMPUTASI&#39;, &#39;RPL&#39;,
+       &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;RPL&#39;, &#39;KOMPUTASI&#39;, &#39;RPL&#39;, &#39;KOMPUTASI&#39;,
+       &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;RPL&#39;, &#39;KOMPUTASI&#39;,
+       &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;RPL&#39;, &#39;RPL&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;,
+       &#39;RPL&#39;, &#39;RPL&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;RPL&#39;, &#39;RPL&#39;, &#39;RPL&#39;,
+       &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;RPL&#39;, &#39;RPL&#39;, &#39;RPL&#39;, &#39;RPL&#39;, &#39;RPL&#39;, &#39;RPL&#39;,
+       &#39;RPL&#39;, &#39;RPL&#39;, &#39;RPL&#39;, &#39;RPL&#39;, &#39;RPL&#39;, &#39;RPL&#39;, &#39;KOMPUTASI&#39;, &#39;RPL&#39;,
+       &#39;RPL&#39;, &#39;RPL&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;,
+       &#39;RPL&#39;, &#39;RPL&#39;, &#39;KOMPUTASI&#39;, &#39;RPL&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;,
+       &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;RPL&#39;, &#39;RPL&#39;,
+       &#39;RPL&#39;, &#39;KOMPUTASI&#39;, &#39;RPL&#39;, &#39;RPL&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;,
+       &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;RPL&#39;, &#39;RPL&#39;, &#39;RPL&#39;, &#39;RPL&#39;, &#39;KOMPUTASI&#39;,
+       &#39;RPL&#39;, &#39;RPL&#39;, &#39;RPL&#39;, &#39;RPL&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;RPL&#39;, &#39;RPL&#39;,
+       &#39;KOMPUTASI&#39;, &#39;RPL&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;RPL&#39;, &#39;KOMPUTASI&#39;,
+       &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;RPL&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;,
+       &#39;KOMPUTASI&#39;, &#39;RPL&#39;, &#39;RPL&#39;, &#39;KOMPUTASI&#39;, &#39;RPL&#39;, &#39;RPL&#39;, &#39;KOMPUTASI&#39;,
+       &#39;RPL&#39;, &#39;RPL&#39;, &#39;RPL&#39;, &#39;KOMPUTASI&#39;, &#39;RPL&#39;, &#39;RPL&#39;, &#39;KOMPUTASI&#39;,
+       &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;RPL&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;,
+       &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;RPL&#39;, &#39;KOMPUTASI&#39;,
+       &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;,
+       &#39;KOMPUTASI&#39;, &#39;RPL&#39;, &#39;RPL&#39;, &#39;RPL&#39;, &#39;RPL&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;,
+       &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;,
+       &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;,
+       &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;,
+       &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;,
+       &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;RPL&#39;,
+       &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;,
+       &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;RPL&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;,
+       &#39;KOMPUTASI&#39;, &#39;RPL&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;RPL&#39;,
+       &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;RPL&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;,
+       &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;RPL&#39;, &#39;RPL&#39;,
+       &#39;RPL&#39;, &#39;KOMPUTASI&#39;, &#39;RPL&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;,
+       &#39;KOMPUTASI&#39;, &#39;RPL&#39;, &#39;KOMPUTASI&#39;, &#39;RPL&#39;, &#39;RPL&#39;, &#39;RPL&#39;, &#39;KOMPUTASI&#39;,
+       &#39;RPL&#39;, &#39;KOMPUTASI&#39;, &#39;RPL&#39;, &#39;KOMPUTASI&#39;, &#39;RPL&#39;, &#39;KOMPUTASI&#39;, &#39;RPL&#39;,
+       &#39;RPL&#39;, &#39;RPL&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;RPL&#39;, &#39;RPL&#39;, &#39;RPL&#39;, &#39;RPL&#39;,
+       &#39;RPL&#39;, &#39;RPL&#39;, &#39;RPL&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;RPL&#39;, &#39;KOMPUTASI&#39;,
+       &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;RPL&#39;, &#39;KOMPUTASI&#39;, &#39;RPL&#39;,
+       &#39;RPL&#39;, &#39;RPL&#39;, &#39;RPL&#39;, &#39;KOMPUTASI&#39;, &#39;RPL&#39;, &#39;RPL&#39;, &#39;RPL&#39;, &#39;RPL&#39;,
+       &#39;KOMPUTASI&#39;, &#39;RPL&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;RPL&#39;,
+       &#39;RPL&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;RPL&#39;, &#39;RPL&#39;, &#39;RPL&#39;, &#39;KOMPUTASI&#39;,
+       &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;RPL&#39;, &#39;RPL&#39;, &#39;RPL&#39;, &#39;KOMPUTASI&#39;, &#39;RPL&#39;,
+       &#39;RPL&#39;, &#39;KOMPUTASI&#39;, &#39;RPL&#39;, &#39;RPL&#39;, &#39;RPL&#39;, &#39;KOMPUTASI&#39;, &#39;RPL&#39;,
+       &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;RPL&#39;,
+       &#39;KOMPUTASI&#39;, &#39;RPL&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;RPL&#39;, &#39;KOMPUTASI&#39;,
+       &#39;KOMPUTASI&#39;, &#39;RPL&#39;, &#39;RPL&#39;, &#39;RPL&#39;, &#39;RPL&#39;, &#39;RPL&#39;, &#39;KOMPUTASI&#39;, &#39;RPL&#39;,
+       &#39;RPL&#39;, &#39;RPL&#39;, &#39;KOMPUTASI&#39;, &#39;RPL&#39;, &#39;RPL&#39;, &#39;RPL&#39;, &#39;KOMPUTASI&#39;, &#39;RPL&#39;,
+       &#39;KOMPUTASI&#39;, &#39;RPL&#39;, &#39;RPL&#39;, &#39;KOMPUTASI&#39;, &#39;RPL&#39;, &#39;RPL&#39;, &#39;KOMPUTASI&#39;,
+       &#39;RPL&#39;, &#39;KOMPUTASI&#39;, &#39;RPL&#39;, &#39;KOMPUTASI&#39;, &#39;RPL&#39;, &#39;RPL&#39;, &#39;KOMPUTASI&#39;,
+       &#39;KOMPUTASI&#39;, &#39;RPL&#39;, &#39;RPL&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;,
+       &#39;RPL&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;,
+       &#39;KOMPUTASI&#39;, &#39;RPL&#39;, &#39;RPL&#39;, &#39;RPL&#39;, &#39;RPL&#39;, &#39;RPL&#39;, &#39;KOMPUTASI&#39;, &#39;RPL&#39;,
+       &#39;RPL&#39;, &#39;RPL&#39;, &#39;RPL&#39;, &#39;RPL&#39;, &#39;KOMPUTASI&#39;, &#39;RPL&#39;, &#39;KOMPUTASI&#39;,
+       &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;RPL&#39;, &#39;RPL&#39;, &#39;RPL&#39;, &#39;RPL&#39;, &#39;KOMPUTASI&#39;,
+       &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;,
+       &#39;KOMPUTASI&#39;, &#39;RPL&#39;, &#39;KOMPUTASI&#39;, &#39;RPL&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;,
+       &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;,
+       &#39;RPL&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;,
+       &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;,
+       &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;RPL&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;,
+       &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;RPL&#39;,
+       &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;RPL&#39;, &#39;RPL&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;,
+       &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;RPL&#39;, &#39;KOMPUTASI&#39;, &#39;RPL&#39;, &#39;KOMPUTASI&#39;,
+       &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;RPL&#39;, &#39;KOMPUTASI&#39;,
+       &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;,
+       &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;,
+       &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;,
+       &#39;RPL&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;RPL&#39;,
+       &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;RPL&#39;, &#39;KOMPUTASI&#39;,
+       &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;RPL&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;,
+       &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;RPL&#39;, &#39;KOMPUTASI&#39;, &#39;RPL&#39;, &#39;KOMPUTASI&#39;,
+       &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;,
+       &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;,
+       &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;,
+       &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;RPL&#39;, &#39;RPL&#39;, &#39;KOMPUTASI&#39;, &#39;RPL&#39;, &#39;RPL&#39;,
+       &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;,
+       &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;RPL&#39;, &#39;KOMPUTASI&#39;, &#39;RPL&#39;, &#39;RPL&#39;, &#39;RPL&#39;,
+       &#39;RPL&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;RPL&#39;, &#39;KOMPUTASI&#39;,
+       &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;,
+       &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;,
+       &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;,
+       &#39;RPL&#39;, &#39;RPL&#39;, &#39;RPL&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;,
+       &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;,
+       &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;RPL&#39;,
+       &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;RPL&#39;, &#39;RPL&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;,
+       &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;,
+       &#39;KOMPUTASI&#39;, &#39;RPL&#39;, &#39;RPL&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;,
+       &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;,
+       &#39;RPL&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;,
+       &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;RPL&#39;, &#39;KOMPUTASI&#39;,
+       &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;RPL&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;,
+       &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;, &#39;KOMPUTASI&#39;],
+      dtype=object)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">preprocessing</span>
+<span class="n">le</span> <span class="o">=</span> <span class="n">preprocessing</span><span class="o">.</span><span class="n">LabelEncoder</span><span class="p">()</span>
+<span class="n">le</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style>#sk-container-id-3 {color: black;background-color: white;}#sk-container-id-3 pre{padding: 0;}#sk-container-id-3 div.sk-toggleable {background-color: white;}#sk-container-id-3 label.sk-toggleable__label {cursor: pointer;display: block;width: 100%;margin-bottom: 0;padding: 0.3em;box-sizing: border-box;text-align: center;}#sk-container-id-3 label.sk-toggleable__label-arrow:before {content: "▸";float: left;margin-right: 0.25em;color: #696969;}#sk-container-id-3 label.sk-toggleable__label-arrow:hover:before {color: black;}#sk-container-id-3 div.sk-estimator:hover label.sk-toggleable__label-arrow:before {color: black;}#sk-container-id-3 div.sk-toggleable__content {max-height: 0;max-width: 0;overflow: hidden;text-align: left;background-color: #f0f8ff;}#sk-container-id-3 div.sk-toggleable__content pre {margin: 0.2em;color: black;border-radius: 0.25em;background-color: #f0f8ff;}#sk-container-id-3 input.sk-toggleable__control:checked~div.sk-toggleable__content {max-height: 200px;max-width: 100%;overflow: auto;}#sk-container-id-3 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {content: "▾";}#sk-container-id-3 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-3 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-3 input.sk-hidden--visually {border: 0;clip: rect(1px 1px 1px 1px);clip: rect(1px, 1px, 1px, 1px);height: 1px;margin: -1px;overflow: hidden;padding: 0;position: absolute;width: 1px;}#sk-container-id-3 div.sk-estimator {font-family: monospace;background-color: #f0f8ff;border: 1px dotted black;border-radius: 0.25em;box-sizing: border-box;margin-bottom: 0.5em;}#sk-container-id-3 div.sk-estimator:hover {background-color: #d4ebff;}#sk-container-id-3 div.sk-parallel-item::after {content: "";width: 100%;border-bottom: 1px solid gray;flex-grow: 1;}#sk-container-id-3 div.sk-label:hover label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-3 div.sk-serial::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: 0;}#sk-container-id-3 div.sk-serial {display: flex;flex-direction: column;align-items: center;background-color: white;padding-right: 0.2em;padding-left: 0.2em;position: relative;}#sk-container-id-3 div.sk-item {position: relative;z-index: 1;}#sk-container-id-3 div.sk-parallel {display: flex;align-items: stretch;justify-content: center;background-color: white;position: relative;}#sk-container-id-3 div.sk-item::before, #sk-container-id-3 div.sk-parallel-item::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: -1;}#sk-container-id-3 div.sk-parallel-item {display: flex;flex-direction: column;z-index: 1;position: relative;background-color: white;}#sk-container-id-3 div.sk-parallel-item:first-child::after {align-self: flex-end;width: 50%;}#sk-container-id-3 div.sk-parallel-item:last-child::after {align-self: flex-start;width: 50%;}#sk-container-id-3 div.sk-parallel-item:only-child::after {width: 0;}#sk-container-id-3 div.sk-dashed-wrapped {border: 1px dashed gray;margin: 0 0.4em 0.5em 0.4em;box-sizing: border-box;padding-bottom: 0.4em;background-color: white;}#sk-container-id-3 div.sk-label label {font-family: monospace;font-weight: bold;display: inline-block;line-height: 1.2em;}#sk-container-id-3 div.sk-label-container {text-align: center;}#sk-container-id-3 div.sk-container {/* jupyter's `normalize.less` sets `[hidden] { display: none; }` but bootstrap.min.css set `[hidden] { display: none !important; }` so we also need the `!important` here to be able to override the default hidden behavior on the sphinx rendered scikit-learn.org. See: https://github.com/scikit-learn/scikit-learn/issues/21755 */display: inline-block !important;position: relative;}#sk-container-id-3 div.sk-text-repr-fallback {display: none;}</style><div id="sk-container-id-3" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>LabelEncoder()</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-3" type="checkbox" checked><label for="sk-estimator-id-3" class="sk-toggleable__label sk-toggleable__label-arrow">LabelEncoder</label><div class="sk-toggleable__content"><pre>LabelEncoder()</pre></div></div></div></div></div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">yBaru</span> <span class="o">=</span> <span class="n">le</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.cluster</span> <span class="kn">import</span> <span class="n">KMeans</span>
+<span class="n">cluster_K</span> <span class="o">=</span> <span class="n">KMeans</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">fitted_K</span> <span class="o">=</span> <span class="n">cluster_K</span><span class="o">.</span><span class="n">fit_predict</span><span class="p">(</span><span class="n">principalComponents_abstrak</span><span class="p">)</span>
+<span class="n">cluster</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;Cluster&#39;</span><span class="p">:</span> <span class="n">fitted_K</span><span class="p">})</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/local/lib/python3.9/dist-packages/sklearn/cluster/_kmeans.py:870: FutureWarning: The default value of `n_init` will change from 10 to &#39;auto&#39; in 1.4. Set the value of `n_init` explicitly to suppress the warning
+  warnings.warn(
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">hasil_cluster</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">X</span><span class="p">,</span> <span class="n">cluster</span><span class="p">],</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">hasil_cluster</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+  <div id="df-0b210ebb-55a3-4b06-a813-c81895c79e0c">
+    <div class="colab-df-container">
+      <div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Abstrak</th>
+      <th>Cluster</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Sistem  informasi  akademik  (SIAKAD) merupaka...</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Berjalannya koneksi jaringan komputer dengan l...</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Web server adalah sebuah perangkat lunak serve...</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Penjadwalan  kuliah  di  Perguruan  Tinggi  me...</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Seiring perkembangan teknologi yang ada diduni...</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>800</th>
+      <td>Investasi saham selama ini memiliki resiko ker...</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>801</th>
+      <td>Information Retrieval (IR) merupakan pengambil...</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>802</th>
+      <td>Klasifikasi citra merupakan proses pengelompok...</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>803</th>
+      <td>Identifikasi atribut pejalan kaki merupakan sa...</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>804</th>
+      <td>Topik deteksi objek telah menarik perhatian ya...</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+<p>805 rows × 2 columns</p>
+</div>
+      <button class="colab-df-convert" onclick="convertToInteractive('df-0b210ebb-55a3-4b06-a813-c81895c79e0c')"
+              title="Convert this dataframe to an interactive table."
+              style="display:none;">
+        
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px"viewBox="0 0 24 24"
+       width="24px">
+    <path d="M0 0h24v24H0V0z" fill="none"/>
+    <path d="M18.56 5.44l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94zm-11 1L8.5 8.5l.94-2.06 2.06-.94-2.06-.94L8.5 2.5l-.94 2.06-2.06.94zm10 10l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94z"/><path d="M17.41 7.96l-1.37-1.37c-.4-.4-.92-.59-1.43-.59-.52 0-1.04.2-1.43.59L10.3 9.45l-7.72 7.72c-.78.78-.78 2.05 0 2.83L4 21.41c.39.39.9.59 1.41.59.51 0 1.02-.2 1.41-.59l7.78-7.78 2.81-2.81c.8-.78.8-2.07 0-2.86zM5.41 20L4 18.59l7.72-7.72 1.47 1.35L5.41 20z"/>
+  </svg>
+      </button>
+      
+  <style>
+    .colab-df-container {
+      display:flex;
+      flex-wrap:wrap;
+      gap: 12px;
+    }
+
+    .colab-df-convert {
+      background-color: #E8F0FE;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      fill: #1967D2;
+      height: 32px;
+      padding: 0 0 0 0;
+      width: 32px;
+    }
+
+    .colab-df-convert:hover {
+      background-color: #E2EBFA;
+      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+      fill: #174EA6;
+    }
+
+    [theme=dark] .colab-df-convert {
+      background-color: #3B4455;
+      fill: #D2E3FC;
+    }
+
+    [theme=dark] .colab-df-convert:hover {
+      background-color: #434B5C;
+      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+      fill: #FFFFFF;
+    }
+  </style>
+
+      <script>
+        const buttonEl =
+          document.querySelector('#df-0b210ebb-55a3-4b06-a813-c81895c79e0c button.colab-df-convert');
+        buttonEl.style.display =
+          google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+        async function convertToInteractive(key) {
+          const element = document.querySelector('#df-0b210ebb-55a3-4b06-a813-c81895c79e0c');
+          const dataTable =
+            await google.colab.kernel.invokeFunction('convertToInteractive',
+                                                     [key], {});
+          if (!dataTable) return;
+
+          const docLinkHtml = 'Like what you see? Visit the ' +
+            '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
+            + ' to learn more about interactive tables.';
+          element.innerHTML = '';
+          dataTable['output_type'] = 'display_data';
+          await google.colab.output.renderOutput(dataTable, element);
+          const docLink = document.createElement('div');
+          docLink.innerHTML = docLinkHtml;
+          element.appendChild(docLink);
+        }
+      </script>
+    </div>
+  </div>
+  </div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Visualising the clusters</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span> 
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Hasil Clustering Menggunakan  K-Means&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">principalComponents_abstrak</span><span class="p">[</span><span class="n">fitted_K</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">principalComponents_abstrak</span><span class="p">[</span><span class="n">fitted_K</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">s</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="s1">&#39;yellow&#39;</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;RPL&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">principalComponents_abstrak</span><span class="p">[</span><span class="n">fitted_K</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">principalComponents_abstrak</span><span class="p">[</span><span class="n">fitted_K</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">s</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;Komputasi&#39;</span><span class="p">)</span>
+
+<span class="c1">#Plotting the centroids of the clusters</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">cluster_K</span><span class="o">.</span><span class="n">cluster_centers_</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">cluster_K</span><span class="o">.</span><span class="n">cluster_centers_</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="n">s</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;Centroids&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7f1e2d85b3a0&gt;
+</pre></div>
+</div>
+<img alt="_images/1bace3e66063961dce55125d03493e5b3327f5c38ba0e21f1797ad551cba507d.png" src="_images/1bace3e66063961dce55125d03493e5b3327f5c38ba0e21f1797ad551cba507d.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">classification_report</span>
+
+<span class="n">target_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;RPL&#39;</span><span class="p">,</span> <span class="s1">&#39;KOMPUTASI&#39;</span><span class="p">]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">classification_report</span><span class="p">(</span><span class="n">yBaru</span><span class="p">,</span><span class="n">cluster_K</span><span class="o">.</span><span class="n">labels_</span><span class="p">,</span><span class="n">target_names</span><span class="o">=</span><span class="n">target_names</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>              precision    recall  f1-score   support
+
+         RPL       0.62      0.81      0.70       534
+   KOMPUTASI       0.00      0.00      0.00       271
+
+    accuracy                           0.54       805
+   macro avg       0.31      0.41      0.35       805
+weighted avg       0.41      0.54      0.46       805
 </pre></div>
 </div>
 </div>
@@ -3779,6 +4338,7 @@ weighted avg       0.83      0.83      0.83       161
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#splitting-data">Splitting Data</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pemodelan-knn">Pemodelan KNN</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pemodelan-naive-bayes">Pemodelan Naive Bayes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#k-means-clustering">K-MEANS Clustering</a></li>
 </ul>
 </li>
 </ul>
